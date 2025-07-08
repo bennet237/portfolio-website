@@ -14,17 +14,19 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #121212;
-            color: #f5f5f5;
+            background-color: #141414; /* Dark background */
+            color: #fff; /* Light text */
             line-height: 1.6;
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
         }
 
         a {
-            color: #f5f5f5;
+            color: #E50914; /* Netflix-like red for links */
             text-decoration: none;
         }
 
@@ -35,44 +37,84 @@
             left: 0;
             width: 100%;
             display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background-color: #1f1f1f;
+            justify-content: space-between; /* Space between name and nav */
+            align-items: center;
+            padding: 20px 40px;
+            background-color: transparent;
             z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        
+        body.scrolled header {
+             background-color: rgba(20, 20, 20, 0.9);
+        }
+
+        .filmmaker-name {
+            font-size: 1.3em;
+            font-weight: bold;
         }
 
         nav a {
-            margin-right: 20px;
+            margin-left: 25px;
             font-size: 1.1em;
-        }
-
-        .social-links a {
-            margin-left: 20px;
-            font-size: 1.5em;
+            font-weight: bold;
         }
 
         /* Sections */
         .section {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 0;
             transition: opacity 0.5s ease;
-            scroll-snap-align: start;
-            padding: 20px;
+            padding: 100px 40px; /* Increased padding */
+            background-color: #141414;
+        }
+        
+        .section h2 {
+            font-size: 2.5em; /* Larger headings */
+            text-transform: uppercase; /* All caps */
+            margin-bottom: 40px;
+            text-align: center;
         }
 
         .section.in-view {
             opacity: 1;
         }
 
+        /* Home (Reel) Section */
+        #home .video-thumbnail {
+            position: relative;
+            cursor: pointer;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .video-thumbnail img, .photo-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em; /* Larger play icon */
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0,0,0,0.7);
+            pointer-events: none;
+        }
+        
         /* About Section */
         .about-content {
             display: flex;
             align-items: center;
-            max-width: 800px;
+            max-width: 900px;
             text-align: left;
         }
 
@@ -82,157 +124,220 @@
             border-radius: 8px;
         }
 
-        /* Video Containers */
-        .video-container {
-            position: relative;
+        /* Filmography Section */
+        .main-viewer {
             width: 100%;
-            max-width: 800px;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 55vh;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
         }
-
-        .video-container iframe {
+        
+        .main-viewer video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: 8px;
+        }
+        
+        .viewer-info {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            width: 50%;
+            background: linear-gradient(to right, rgba(20, 20, 20, 1) 50%, rgba(20, 20, 20, 0));
+        }
+        
+        .viewer-info h3 { font-size: 2.5em; margin-bottom: 10px; }
+        .viewer-info p { font-size: 1.1em; margin-bottom: 20px; }
+
+        .play-button {
+            padding: 10px 25px;
+            font-size: 1.2em;
+            background-color: #fff;
+            color: #141414;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .nav-arrow {
+            font-size: 3em;
+            color: white;
+            cursor: pointer;
+            z-index: 3;
+            padding: 20px;
+            user-select: none;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Featured Works */
-        .featured-works {
-            overflow-y: auto;
-            max-width: 1000px;
+        .film-carousel { width: 100%; }
+        .carousel-track {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+
+        .carousel-thumbnail {
+            min-width: 250px;
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .carousel-thumbnail:hover { transform: scale(1.05); }
+
+        /* Photography Section */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             width: 100%;
+            max-width: 1200px;
         }
-
-        .featured-work {
-            margin-bottom: 40px;
+        .photo-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
         }
-
-        .featured-work h3 {
-            margin-bottom: 10px;
+        .photo-item .description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
         }
+        .photo-item:hover .description { transform: translateY(0); }
 
         /* Contact Form */
-        .contact-form {
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
+        .contact-form { max-width: 500px; width: 100%; }
+        .contact-form label { display: block; margin-bottom: 5px; }
         .contact-form input, .contact-form textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             background-color: #333;
-            color: #f5f5f5;
-            border: none;
+            color: #fff;
+            border: 1px solid #555;
             border-radius: 4px;
         }
-
         .contact-form button {
             padding: 10px 20px;
-            background-color: #f5f5f5;
-            color: #121212;
+            background-color: #E50914;
+            color: #fff;
             border: none;
             cursor: pointer;
+            font-weight: bold;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: #1f1f1f;
-            color: #bbb;
-            font-size: 0.9em;
+            padding: 40px 20px;
+            background-color: #101010;
+            color: #888;
         }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { margin: 0 15px; font-size: 1.8em; color: #fff; }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .about-content {
-                flex-direction: column;
-                text-align: center;
-            }
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content { position: relative; }
+        .video-modal .modal-content { width: 80%; max-width: 960px; height: 540px; }
+        .video-modal iframe { width: 100%; height: 100%; }
 
-            .about-content img {
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-
-            nav a {
-                font-size: 1em;
-            }
-
-            .social-links a {
-                font-size: 1.2em;
-            }
+        .image-modal .modal-content { max-width: 90vw; max-height: 90vh; }
+        .image-modal img { width: auto; height: auto; max-width: 100%; max-height: 100%; display: block; }
+        
+        .close {
+            position: absolute;
+            top: -45px; right: -5px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
+        <div class="filmmaker-name">John Doe | Aspiring Director</div>
         <nav>
+            <a href="#home">Reel</a>
             <a href="#about">About</a>
-            <a href="#reel">Reel</a>
-            <a href="#featured-works">Featured Works</a>
+            <a href="#filmography">Filmography</a>
+            <a href="#photography">Photography</a>
             <a href="#contact">Contact</a>
         </nav>
-        <div class="social-links">
-            <a href="https://www.youtube.com/user/YOUR_YOUTUBE" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:YOUR_EMAIL@example.com"><i class="fas fa-envelope"></i></a>
-            <a href="https://vimeo.com/YOUR_VIMEO" target="_blank"><i class="fab fa-vimeo"></i></a>
-        </div>
     </header>
 
-    <!-- Main Content -->
     <main>
-        <!-- About Section -->
+        <section id="home" class="section">
+            <h2>REEL</h2>
+            <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-a-director-instructs-the-cameraman-on-set-48823-large.mp4">
+                <img src="https://assets.mixkit.co/videos/preview/mixkit-a-director-instructs-the-cameraman-on-set-48823-large.jpg" alt="Film Reel Thumbnail">
+                <i class="fas fa-play play-icon"></i>
+            </div>
+        </section>
+        
         <section id="about" class="section">
+            <h2>ABOUT</h2>
             <div class="about-content">
-                <img src="director-photo.jpg" alt="John Doe">
-                <p>I'm John Doe, an aspiring film director with a passion for storytelling through visual media. With a background in [relevant experience], I am currently seeking opportunities to bring my creative vision to life.</p>
+                <img src="https://images.pexels.com/photos/7794041/pexels-photo-7794041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="John Doe">
+                <p>I'm John Doe, an aspiring film director with a passion for storytelling through visual media. With a background in indie film production, I am currently seeking opportunities to bring my creative vision to life.</p>
             </div>
         </section>
 
-        <!-- Reel Section -->
-        <section id="reel" class="section">
-            <h2>Reel</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <!-- Featured Works Section -->
-        <section id="featured-works" class="section">
-            <h2>Featured Works</h2>
-            <div class="featured-works">
-                <div class="featured-work">
-                    <h3>Work Title 1</h3>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <p>Description of the work...</p>
+        <section id="filmography" class="section">
+            <h2>FILMOGRAPHY</h2>
+            <div class="main-viewer" id="filmography-viewer">
+                <span class="nav-arrow" id="prev-arrow">❮</span>
+                <div class="viewer-info">
+                    <h3 id="viewer-title"></h3>
+                    <p id="viewer-description"></p>
+                    <button class="play-button" id="viewer-play-btn">Watch Trailer</button>
                 </div>
-                <div class="featured-work">
-                    <h3>Work Title 2</h3>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/VIDEO_ID2" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <p>Description of the work...</p>
-                </div>
-                <!-- Add more works as needed -->
+                <video id="main-viewer-video" muted loop playsinline></video>
+                <span class="nav-arrow" id="next-arrow">❯</span>
+            </div>
+            <div class="film-carousel">
+                <div class="carousel-track" id="film-carousel-track"></div>
             </div>
         </section>
+        
+        <section id="photography" class="section">
+            <h2>PHOTOGRAPHY</h2>
+            <div class="photo-grid" id="photo-grid"></div>
+        </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="section">
-            <h2>Contact</h2>
+            <h2>CONTACT</h2>
             <form class="contact-form" action="https://formspree.io/your-endpoint" method="POST">
                 <label for="email">Your Email</label>
                 <input type="email" id="email" name="email" required>
@@ -245,36 +350,167 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 John Doe. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-vimeo"></i></a>
+        </div>
+        <p>© 2025 John Doe. All rights reserved.</p>
     </footer>
 
+    <div class="modal video-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <div class="modal image-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="" alt="Enlarged view" />
+        </div>
+    </div>
+
     <script>
-        // Intersection Observer for fading sections
-        const sections = document.querySelectorAll('.section');
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DATA ---
+        const filmData = [
+            { id: 1, title: "Stellar Drift", role: "Director", thumb: "https://assets.mixkit.co/videos/preview/mixkit-one-man-in-a-suit-walking-through-the-woods-49829-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-one-man-in-a-suit-walking-through-the-woods-49829-large.mp4" },
+            { id: 2, title: "Neon Run", role: "Cinematographer", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-man-runs-on-a-bridge-in-a-futuristic-city-49800-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-man-runs-on-a-bridge-in-a-futuristic-city-49800-large.mp4" },
+            { id: 3, title: "The Last Byte", role: "Editor", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-hacker-typing-on-a-computer-at-night-49807-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-hacker-typing-on-a-computer-at-night-49807-large.mp4" },
+            { id: 4, title: "Lost Signal", role: "Director", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-person-in-a-gas-mask-in-a-ruined-building-49814-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-person-in-a-gas-mask-in-a-ruined-building-49814-large.mp4" },
+        ];
+        
+        const photoData = [
+            { src: "https://images.pexels.com/photos/1576937/pexels-photo-1576937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "A quiet moment of reflection captured in the golden hour." },
+            { src: "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
+            { src: "https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "The powerful and mesmerizing flow of a secluded waterfall." },
+            { src: "https://images.pexels.com/photos/2832061/pexels-photo-2832061.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "Stark contrasts between the serene lake and dramatic mountain peaks." }
+        ];
+
+        // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                } else {
-                    entry.target.classList.remove('in-view');
-                }
-            });
-        }, { threshold: 0.5 });
+            entries.forEach(entry => entry.target.classList.toggle('in-view', entry.isIntersecting));
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-        sections.forEach(section => observer.observe(section));
+        window.addEventListener('scroll', () => {
+            document.body.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-        // Smooth scrolling for navigation links
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
+        // --- MODAL HANDLING ---
+        const videoModal = document.querySelector('.video-modal');
+        const imageModal = document.querySelector('.image-modal');
+        const videoIframe = videoModal.querySelector('iframe');
+        const imageEl = imageModal.querySelector('img');
+
+        function openModal(modal) { modal.style.display = 'flex'; }
+        function closeModal(modal) {
+            modal.style.display = 'none';
+            if (modal.classList.contains('video-modal')) videoIframe.src = '';
+            if (modal.classList.contains('image-modal')) imageEl.src = '';
+        }
+
+        document.querySelectorAll('.modal .close').forEach(btn => {
+            btn.addEventListener('click', (e) => closeModal(e.target.closest('.modal')));
+        });
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
             });
         });
+
+        // --- HOME REEL ---
+        const homeThumbnail = document.querySelector('#home .video-thumbnail');
+        if (homeThumbnail) {
+            homeThumbnail.addEventListener('click', () => {
+                const videoUrl = homeThumbnail.dataset.videoUrl;
+                videoIframe.src = videoUrl + "?autoplay=1";
+                openModal(videoModal);
+            });
+        }
+        
+        // --- FILMOGRAPHY ---
+        const mainViewerVideo = document.getElementById('main-viewer-video');
+        const viewerTitle = document.getElementById('viewer-title');
+        const viewerDescription = document.getElementById('viewer-description');
+        const viewerPlayBtn = document.getElementById('viewer-play-btn');
+        const filmCarouselTrack = document.getElementById('film-carousel-track');
+        const prevArrow = document.getElementById('prev-arrow');
+        const nextArrow = document.getElementById('next-arrow');
+        const filmographyViewer = document.getElementById('filmography-viewer');
+
+        let currentFilmIndex = 0;
+        let autoplayTimer;
+
+        function updateViewer(index) {
+            const item = filmData[index];
+            currentFilmIndex = index;
+            
+            clearTimeout(autoplayTimer);
+            mainViewerVideo.poster = item.thumb;
+            mainViewerVideo.src = item.video;
+            viewerTitle.textContent = item.title;
+            viewerDescription.textContent = `Role: ${item.role}`;
+            
+            mainViewerVideo.play().catch(e => {});
+            autoplayTimer = setTimeout(() => mainViewerVideo.pause(), 10000);
+        }
+
+        filmData.forEach((item, index) => {
+            const thumbDiv = document.createElement('div');
+            thumbDiv.className = 'carousel-thumbnail';
+            thumbDiv.style.backgroundImage = `url(${item.thumb})`;
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index));
+            thumbDiv.addEventListener('click', () => {
+                videoIframe.src = item.video + "?autoplay=1";
+                openModal(videoModal);
+            });
+            filmCarouselTrack.appendChild(thumbDiv);
+        });
+        
+        viewerPlayBtn.addEventListener('click', () => {
+             videoIframe.src = filmData[currentFilmIndex].video + "?autoplay=1";
+             openModal(videoModal);
+        });
+
+        prevArrow.addEventListener('click', () => {
+            const newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+            updateViewer(newIndex);
+        });
+
+        nextArrow.addEventListener('click', () => {
+            const newIndex = (currentFilmIndex + 1) % filmData.length;
+            updateViewer(newIndex);
+        });
+        
+        filmographyViewer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY < 0) prevArrow.click();
+            else nextArrow.click();
+        }, { passive: false });
+
+        if (filmData.length > 0) updateViewer(0);
+
+        // --- PHOTOGRAPHY ---
+        const photoGrid = document.getElementById('photo-grid');
+        photoData.forEach(photo => {
+            const item = document.createElement('div');
+            item.className = 'photo-item';
+            item.innerHTML = `
+                <img src="${photo.src}" alt="${photo.desc}">
+                <div class="description">${photo.desc}</div>
+            `;
+            item.addEventListener('click', () => {
+                imageEl.src = photo.src;
+                openModal(imageModal);
+            });
+            photoGrid.appendChild(item);
+        });
+    });
     </script>
 </body>
 </html>
