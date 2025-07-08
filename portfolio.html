@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - Aspiring Film Director</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #1f1f1f;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #bbb;
+        }
+
+        /* Introduction */
+        .introduction {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Featured Works */
+        .featured-works {
+            padding: 40px 20px;
+        }
+
+        .featured-works h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumbnail {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #f5f5f5;
+        }
+
+        /* Social Links */
+        .social-links {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            font-size: 1.5em;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #1f1f1f;
+        }
+
+        .contact p {
+            font-size: 1.2em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #121212;
+            color: #bbb;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>John Doe</h1>
+        <p>Aspiring Film Director | Seeking Opportunities</p>
+    </header>
+
+    <!-- Introduction -->
+    <section class="introduction">
+        <p>I'm John Doe, an aspiring film director with a passion for storytelling through visual media. Currently seeking opportunities to bring my creative vision to life.</p>
+    </section>
+
+    <!-- Featured Works -->
+    <section class="featured-works">
+        <h2>Featured Works</h2>
+        <div class="grid">
+            <!-- Video 1 -->
+            <div class="thumbnail" data-video="https://www.youtube.com/embed/VIDEO_ID_1">
+                <img src="thumbnail1.jpg" alt="Video 1 Thumbnail">
+            </div>
+            <!-- Video 2 -->
+            <div class="thumbnail" data-video="https://player.vimeo.com/video/VIDEO_ID_2">
+                <img src="thumbnail2.jpg" alt="Video 2 Thumbnail">
+            </div>
+            <!-- Video 3 -->
+            <div class="thumbnail" data-video="https://www.youtube.com/embed/VIDEO_ID_、手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手手handy" alt="Video 3 Thumbnail">
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-links">
+        <a href="https://www.youtube.com/user/YOUR_YOUTUBE" target="_blank">YouTube</a>
+        <a href="https://vimeo.com/YOUR_VIMEO" target="_blank">Vimeo</a>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact">
+        <p>Contact me at: <a href="mailto:john.doe@email.com">john.doe@email.com</a></p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 John Doe. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe width="100%" height="450" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const modal = document.querySelector('.modal');
+        const iframe = modal.querySelector('iframe');
+        const close = modal.querySelector('.close');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                const videoUrl = thumbnail.getAttribute('data-video');
+                iframe.setAttribute('src', videoUrl);
+                modal.style.display = 'flex';
+            });
+        });
+
+        close.addEventListener('click', () => {
+            modal.style.display = 'none';
+            iframe.setAttribute('src', '');
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                iframe.setAttribute('src', '');
+            }
+        });
+    </script>
+</body>
+</html>
