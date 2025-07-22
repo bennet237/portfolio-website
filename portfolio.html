@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe - Film Director</title>
+    <title>Bennet Tefu - Filmmaker</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -20,13 +20,13 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #141414; /* Dark background */
-            color: #fff; /* Light text */
+            background-color: #141414;
+            color: #fff;
             line-height: 1.6;
         }
 
         a {
-            color: #E50914; /* Netflix-like red for links */
+            color: #E50914;
             text-decoration: none;
         }
 
@@ -37,21 +37,22 @@
             left: 0;
             width: 100%;
             display: flex;
-            justify-content: space-between; /* Space between name and nav */
+            justify-content: space-between;
             align-items: center;
             padding: 20px 40px;
             background-color: transparent;
             z-index: 1000;
             transition: background-color 0.3s ease;
         }
-        
+
         body.scrolled header {
-             background-color: rgba(20, 20, 20, 0.9);
+            background-color: rgba(20, 20, 20, 0.9);
         }
 
         .filmmaker-name {
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: bold;
+            color: #E50914;
         }
 
         nav a {
@@ -69,15 +70,27 @@
             align-items: center;
             opacity: 0;
             transition: opacity 0.5s ease;
-            padding: 100px 40px; /* Increased padding */
+            padding: 100px 40px;
             background-color: #141414;
         }
-        
+
+        #home {
+            padding: 0;
+        }
+
         .section h2 {
-            font-size: 2.5em; /* Larger headings */
-            text-transform: uppercase; /* All caps */
+            font-size: 2.5em;
+            text-transform: uppercase;
             margin-bottom: 40px;
             text-align: center;
+        }
+
+        .section h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .section.in-view {
@@ -85,31 +98,29 @@
         }
 
         /* Home (Reel) Section */
-        #home .video-thumbnail {
+        #home .video-container {
             position: relative;
-            cursor: pointer;
-            max-width: 900px;
             width: 100%;
+            height: 100vh;
         }
 
-        .video-thumbnail img, .photo-item img {
+        #home-video {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
-            display: block;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .play-icon {
+        .play-button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 4em; /* Larger play icon */
+            font-size: 3em;
             color: #fff;
-            text-shadow: 0 0 15px rgba(0,0,0,0.7);
-            pointer-events: none;
+            cursor: pointer;
+            z-index: 10;
         }
-        
+
         /* About Section */
         .about-content {
             display: flex;
@@ -136,7 +147,7 @@
             justify-content: space-between;
             margin-bottom: 40px;
         }
-        
+
         .main-viewer video {
             position: absolute;
             top: 0;
@@ -147,89 +158,218 @@
             z-index: 1;
             border-radius: 8px;
         }
-        
-        .viewer-info {
-            position: relative;
+
+        .viewer-info-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(to right, rgba(20, 20, 20, 0.9) 70%, rgba(20, 20, 20, 0));
             z-index: 2;
-            padding: 40px;
-            width: 50%;
-            background: linear-gradient(to right, rgba(20, 20, 20, 1) 50%, rgba(20, 20, 20, 0));
-        }
-        
-        .viewer-info h3 { font-size: 2.5em; margin-bottom: 10px; }
-        .viewer-info p { font-size: 1.1em; margin-bottom: 20px; }
-
-        .play-button {
-            padding: 10px 25px;
-            font-size: 1.2em;
-            background-color: #fff;
-            color: #141414;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .nav-arrow {
-            font-size: 3em;
-            color: white;
-            cursor: pointer;
-            z-index: 3;
+            display: flex;
+            align-items: center;
             padding: 20px;
-            user-select: none;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        .film-carousel { width: 100%; }
+        .viewer-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .info-text {
+            margin-bottom: 20px;
+        }
+
+        .viewer-info h3 { font-size: 2.5em; margin-bottom: 15px; }
+        .viewer-info p { font-size: 1.1em; margin-bottom: 15px; }
+
+        .film-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .film-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #555;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .film-dot.active {
+            background-color: #E50914;
+        }
+
+        .film-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(20, 20, 20, 0.7);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-arrow:hover {
+            background-color: #E50914;
+        }
+        .carousel-arrow-left {
+            left: 0;
+        }
+        .carousel-arrow-right {
+            right: 0;
+        }
+
         .carousel-track {
             display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 15px;
+            gap: 20px;
+            overflow-x: hidden; /* Changed from auto to hidden */
+            scroll-behavior: smooth;
         }
+
         .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track { -ms-overflow-style: none; scrollbar-width: none; } /* Firefox */
 
         .carousel-thumbnail {
-            min-width: 250px;
-            height: 140px;
+            min-width: 300px;
+            height: 180px;
             background-size: cover;
             background-position: center;
             border-radius: 5px;
             cursor: pointer;
             transition: transform 0.2s ease;
+            position: relative;
         }
+
         .carousel-thumbnail:hover { transform: scale(1.05); }
 
+        .carousel-thumbnail.selected {
+            border: 2px solid #E50914;
+        }
+
+        .carousel-thumbnail .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .carousel-thumbnail:hover .play-icon {
+            opacity: 1;
+        }
+
         /* Photography Section */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .photo-series-wrapper {
+            display: flex;
             width: 100%;
             max-width: 1200px;
         }
-        .photo-item {
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 8px;
+
+        .photo-series-list {
+            width: 30%;
+            padding-right: 20px;
         }
-        .photo-item .description {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
+
+        .photo-series-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .photo-series-list li {
             padding: 10px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .photo-item:hover .description { transform: translateY(0); }
+
+        .photo-series-list li:hover {
+            background-color: #333;
+        }
+
+        .photo-series-list li.active {
+            background-color: #E50914;
+            color: #fff;
+        }
+
+        .photo-series-display {
+            width: 70%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .photo-item {
+            display: flex;
+            margin-bottom: 20px;
+            height: 300px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .photo-item:hover {
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+
+        .photo-image {
+            width: 50%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-image:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-description {
+            width: 50%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .photo-description p {
+            text-align: left;
+            margin: 0;
+            width: 100%;
+        }
 
         /* Contact Form */
         .contact-form { max-width: 500px; width: 100%; }
+
         .contact-form label { display: block; margin-bottom: 5px; }
+
         .contact-form input, .contact-form textarea {
             width: 100%;
             padding: 10px;
@@ -239,6 +379,7 @@
             border: 1px solid #555;
             border-radius: 4px;
         }
+
         .contact-form button {
             padding: 10px 20px;
             background-color: #E50914;
@@ -255,7 +396,9 @@
             background-color: #101010;
             color: #888;
         }
+
         .social-links { margin-bottom: 20px; }
+
         .social-links a { margin: 0 15px; font-size: 1.8em; color: #fff; }
 
         /* Modals */
@@ -269,27 +412,83 @@
             justify-content: center;
             align-items: center;
         }
-        .modal-content { position: relative; }
-        .video-modal .modal-content { width: 80%; max-width: 960px; height: 540px; }
-        .video-modal iframe { width: 100%; height: 100%; }
 
-        .image-modal .modal-content { max-width: 90vw; max-height: 90vh; }
-        .image-modal img { width: auto; height: auto; max-width: 100%; max-height: 100%; display: block; }
+        .modal-content { position: relative; }
+
+        .video-modal .modal-content { width: 80%; max-width: 960px; }
         
+        .video-modal video { width: 100%; height: 100%; }
+
+        .image-modal .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-modal img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            object-fit: contain;
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            top: -45px;
+            right: 40px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .fullscreen-button:hover {
+            color: #E50914;
+        }
+
         .close {
             position: absolute;
-            top: -45px; right: -5px;
+            top: -45px;
+            right: -5px;
             font-size: 40px;
             color: #fff;
             cursor: pointer;
+        }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #E50914;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c40812;
+        }
+
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #E50914 #333;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="filmmaker-name">John Doe | Aspiring Director</div>
+        <div class="filmmaker-name">Bennet Tefu | Filmmaker</div>
         <nav>
-            <a href="#home">Reel</a>
+            <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#filmography">Filmography</a>
             <a href="#photography">Photography</a>
@@ -299,13 +498,12 @@
 
     <main>
         <section id="home" class="section">
-            <h2>REEL</h2>
-            <div class="video-thumbnail" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-a-director-instructs-the-cameraman-on-set-48823-large.mp4">
-                <img src="https://assets.mixkit.co/videos/preview/mixkit-a-director-instructs-the-cameraman-on-set-48823-large.jpg" alt="Film Reel Thumbnail">
-                <i class="fas fa-play play-icon"></i>
+            <div class="video-container">
+                <video id="home-video" poster="C:/Users/tefub/OneDrive/Desktop/Website/thumbs/demo_reel.png" muted></video>
+                <div class="play-button"><i class="fas fa-play"></i></div>
             </div>
         </section>
-        
+
         <section id="about" class="section">
             <h2>ABOUT</h2>
             <div class="about-content">
@@ -317,23 +515,36 @@
         <section id="filmography" class="section">
             <h2>FILMOGRAPHY</h2>
             <div class="main-viewer" id="filmography-viewer">
-                <span class="nav-arrow" id="prev-arrow">❮</span>
-                <div class="viewer-info">
-                    <h3 id="viewer-title"></h3>
-                    <p id="viewer-description"></p>
-                    <button class="play-button" id="viewer-play-btn">Watch Trailer</button>
+                <div class="viewer-info-container">
+                    <div class="viewer-info">
+                        <div class="info-text">
+                            <h3 id="viewer-title"></h3>
+                            <p id="viewer-logline"></p>
+                            <p id="viewer-description"></p>
+                        </div>
+                        <i class="fas fa-play play-icon" id="viewer-play-icon"></i>
+                    </div>
                 </div>
-                <video id="main-viewer-video" muted loop playsinline></video>
-                <span class="nav-arrow" id="next-arrow">❯</span>
+                <video id="main-viewer-video" loop playsinline></video>
+                <div class="film-dots" id="film-dots"></div>
+ogenic
             </div>
+            <h3>Films</h3>
             <div class="film-carousel">
+                <div class="carousel-arrow carousel-arrow-left"><i class="fas fa-chevron-left"></i></div>
                 <div class="carousel-track" id="film-carousel-track"></div>
+                <div class="carousel-arrow carousel-arrow-right"><i class="fas fa-chevron-right"></i></div>
             </div>
         </section>
-        
+
         <section id="photography" class="section">
             <h2>PHOTOGRAPHY</h2>
-            <div class="photo-grid" id="photo-grid"></div>
+            <div class="photo-series-wrapper">
+                <div class="photo-series-list">
+                    <ul></ul>
+                </div>
+                <div class="photo-series-display"></div>
+            </div>
         </section>
 
         <section id="contact" class="section">
@@ -362,14 +573,15 @@
 
     <div class="modal video-modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <span class="close">×</span>
+            <video id="modalVideoPlayer" controls style="width:100%; height:auto;"></video>
         </div>
     </div>
-    
+
     <div class="modal image-modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close">×</span>
+            <span class="fullscreen-button"><i class="fas fa-expand"></i></span>
             <img src="" alt="Enlarged view" />
         </div>
     </div>
@@ -378,22 +590,84 @@
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
-            { id: 1, title: "Stellar Drift", role: "Director", thumb: "https://assets.mixkit.co/videos/preview/mixkit-one-man-in-a-suit-walking-through-the-woods-49829-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-one-man-in-a-suit-walking-through-the-woods-49829-large.mp4" },
-            { id: 2, title: "Neon Run", role: "Cinematographer", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-man-runs-on-a-bridge-in-a-futuristic-city-49800-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-man-runs-on-a-bridge-in-a-futuristic-city-49800-large.mp4" },
-            { id: 3, title: "The Last Byte", role: "Editor", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-hacker-typing-on-a-computer-at-night-49807-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-hacker-typing-on-a-computer-at-night-49807-large.mp4" },
-            { id: 4, title: "Lost Signal", role: "Director", thumb: "https://assets.mixkit.co/videos/preview/mixkit-a-person-in-a-gas-mask-in-a-ruined-building-49814-large.jpg", video: "https://assets.mixkit.co/videos/preview/mixkit-a-person-in-a-gas-mask-in-a-ruined-building-49814-large.mp4" },
+            { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/the_victorias.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/The_Victorias.mp4" },
+            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/diary_of_cecelia_stone.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Diary_of_Cecelia_Stone.mp4" },
+            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/higher_living.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Higher_Living.mp4" },
+            { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/lucky_fish.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Lucky_Fish.mp4" },
+            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/9-5.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/9-5.mp4" },
+            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/this_is_life.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/This_is_Life.mp4" },
+            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/love_dive.jpg", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Love_Dive.mp4" },
         ];
-        
+
         const photoData = [
-            { src: "https://images.pexels.com/photos/1576937/pexels-photo-1576937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "A quiet moment of reflection captured in the golden hour." },
-            { src: "https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-            { src: "https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "The powerful and mesmerizing flow of a secluded waterfall." },
-            { src: "https://images.pexels.com/photos/2832061/pexels-photo-2832061.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", desc: "Stark contrasts between the serene lake and dramatic mountain peaks." }
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_4453.jpg", desc: "A quiet moment of reflection captured in the golden hour." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_5092.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_5520.jpg", desc: "The powerful and mesmerizing flow of a secluded waterfall." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_5560.jpg", desc: "Stark contrasts between the serene lake and dramatic mountain peaks." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_4221.jpg", desc: "A quiet moment of reflection captured in the golden hour." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_4291.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_3996.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/IMG_2942.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." }
+        ];
+
+        const photoSeries = [
+            {
+                title: "Carleton College Reunion Weekend 2025",
+                photos: photoData
+            },
+            {
+                title: "Film Noir",
+                photos: []
+            },
+            {
+                title: "Headshots",
+                photos: []
+            }
         ];
 
         // --- GENERAL SETUP ---
+        let homeTimeout;
+        let playbackTimeout;
+
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => entry.target.classList.toggle('in-view', entry.isIntersecting));
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    if (entry.target.id === 'home') {
+                        const homeVideo = document.getElementById('home-video');
+                        homeVideo.load(); // Show poster
+                        clearTimeout(homeTimeout);
+                        homeTimeout = setTimeout(() => {
+                            homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                            homeVideo.onended = () => {
+                                homeVideo.load(); // Show poster
+                                homeTimeout = setTimeout(() => {
+                                    homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                                }, 30000);
+                            };
+                        }, 15000);
+                    } else if (entry.target.id === 'filmography') {
+                        setTimeout(() => {
+                            if (filmData.length > 0) {
+                                restartCurrentVideo();
+                            }
+                        }, 500);
+                    }
+                } else {
+                    entry.target.classList.remove('in-view');
+                    if (entry.target.id === 'home') {
+                        const homeVideo = document.getElementById('home-video');
+                        homeVideo.pause();
+                        homeVideo.load(); // Show poster
+                        clearTimeout(homeTimeout);
+                        homeVideo.onended = null;
+                    } else if (entry.target.id === 'filmography') {
+                        const mainViewerVideo = document.getElementById('main-viewer-video');
+                        mainViewerVideo.pause();
+                        clearTimeout(playbackTimeout);
+                    }
+                }
+            });
         }, { threshold: 0.1 });
         document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
@@ -404,112 +678,298 @@
         // --- MODAL HANDLING ---
         const videoModal = document.querySelector('.video-modal');
         const imageModal = document.querySelector('.image-modal');
-        const videoIframe = videoModal.querySelector('iframe');
+        const modalVideoPlayer = document.getElementById('modalVideoPlayer');
         const imageEl = imageModal.querySelector('img');
+        const fullscreenButton = imageModal.querySelector('.fullscreen-button');
 
         function openModal(modal) { modal.style.display = 'flex'; }
-        function closeModal(modal) {
-            modal.style.display = 'none';
-            if (modal.classList.contains('video-modal')) videoIframe.src = '';
-            if (modal.classList.contains('image-modal')) imageEl.src = '';
-        }
 
         document.querySelectorAll('.modal .close').forEach(btn => {
-            btn.addEventListener('click', (e) => closeModal(e.target.closest('.modal')));
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal');
+                modal.style.display = 'none';
+                if (modal.classList.contains('video-modal')) {
+                    modalVideoPlayer.pause();
+                    modalVideoPlayer.src = '';
+                    const mainViewerVideo = document.getElementById('main-viewer-video');
+                    mainViewerVideo.muted = false;
+                    if (document.querySelector('#filmography').classList.contains('in-view')) {
+                        restartCurrentVideo();
+                    }
+                    const homeSection = document.querySelector('#home');
+                    if (homeSection.classList.contains('in-view')) {
+                        const homeVideo = document.getElementById('home-video');
+                        homeVideo.load(); // Show poster
+                        clearTimeout(homeTimeout);
+                        homeTimeout = setTimeout(() => {
+                            homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                            homeVideo.onended = () => {
+                                homeVideo.load();
+                                homeTimeout = setTimeout(() => {
+                                    homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                                }, 30000);
+                            };
+                        }, 15000);
+                    }
+                }
+                if (modal.classList.contains('image-modal')) {
+                    imageEl.src = '';
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
         });
+
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal(modal);
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    if (modal.classList.contains('video-modal')) {
+                        modalVideoPlayer.pause();
+                        modalVideoPlayer.src = '';
+                        const mainViewerVideo = document.getElementById('main-viewer-video');
+                        mainViewerVideo.muted = false;
+                        if (document.querySelector('#filmography').classList.contains('in-view')) {
+                            restartCurrentVideo();
+                        }
+                        const homeSection = document.querySelector('#home');
+                        if (homeSection.classList.contains('in-view')) {
+                            const homeVideo = document.getElementById('home-video');
+                            homeVideo.load(); // Show poster
+                            clearTimeout(homeTimeout);
+                            homeTimeout = setTimeout(() => {
+                                homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                                homeVideo.onended = () => {
+                                    homeVideo.load();
+                                    homeTimeout = setTimeout(() => {
+                                        homeVideo.play().catch(e => console.error("Autoplay failed:", e));
+                                    }, 30000);
+                                };
+                            }, 15000);
+                        }
+                    }
+                    if (modal.classList.contains('image-modal')) {
+                        imageEl.src = '';
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
             });
+        });
+
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                imageModal.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
+            } else {
+                document.exitFullscreen();
+            }
         });
 
         // --- HOME REEL ---
-        const homeThumbnail = document.querySelector('#home .video-thumbnail');
-        if (homeThumbnail) {
-            homeThumbnail.addEventListener('click', () => {
-                const videoUrl = homeThumbnail.dataset.videoUrl;
-                videoIframe.src = videoUrl + "?autoplay=1";
-                openModal(videoModal);
-            });
-        }
-        
+        const homeVideo = document.getElementById('home-video');
+        homeVideo.src = "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/demo_reel.mp4";
+
+        const playButton = document.querySelector('#home .play-button');
+        playButton.addEventListener('click', () => {
+            homeVideo.pause();
+            modalVideoPlayer.src = homeVideo.src;
+            openModal(videoModal);
+            modalVideoPlayer.play();
+        });
+
         // --- FILMOGRAPHY ---
         const mainViewerVideo = document.getElementById('main-viewer-video');
         const viewerTitle = document.getElementById('viewer-title');
+        const viewerLogline = document.getElementById('viewer-logline');
         const viewerDescription = document.getElementById('viewer-description');
-        const viewerPlayBtn = document.getElementById('viewer-play-btn');
+        const viewerPlayIcon = document.getElementById('viewer-play-icon');
         const filmCarouselTrack = document.getElementById('film-carousel-track');
-        const prevArrow = document.getElementById('prev-arrow');
-        const nextArrow = document.getElementById('next-arrow');
         const filmographyViewer = document.getElementById('filmography-viewer');
+        const filmDots = document.getElementById('film-dots');
+        
+        const filmCarousel = document.querySelector('.film-carousel');
+        const leftArrow = filmCarousel.querySelector('.carousel-arrow-left');
+        const rightArrow = filmCarousel.querySelector('.carousel-arrow-right');
 
         let currentFilmIndex = 0;
-        let autoplayTimer;
+
+        function scrollToThumbnail(index) {
+            const thumbnail = document.querySelector(`[data-index="${index}"]`);
+            if (thumbnail) {
+                const trackRect = filmCarouselTrack.getBoundingClientRect();
+                const thumbRect = thumbnail.getBoundingClientRect();
+                const thumbnailLeft = thumbRect.left - trackRect.left + filmCarouselTrack.scrollLeft;
+                const thumbnailRight = thumbnailLeft + thumbRect.width;
+                const trackWidth = trackRect.width;
+                
+                if (thumbnailLeft < filmCarouselTrack.scrollLeft || thumbnailRight > filmCarouselTrack.scrollLeft + trackWidth) {
+                    filmCarouselTrack.scrollTo({
+                        left: thumbnailLeft - (trackWidth - thumbRect.width) / 2,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
+        function restartCurrentVideo() {
+            clearTimeout(playbackTimeout);
+            
+            if (currentFilmIndex < filmData.length) {
+                const item = filmData[currentFilmIndex];
+                
+                mainViewerVideo.pause();
+                mainViewerVideo.load();
+                
+                playbackTimeout = setTimeout(() => {
+                    startPlaybackLoop(currentFilmIndex);
+                }, 5000);
+            }
+        }
+
+        function startPlaybackLoop(index) {
+            if (currentFilmIndex !== index) return;
+
+            mainViewerVideo.currentTime = 60;
+            mainViewerVideo.play().catch(e => console.error("Autoplay failed:", e));
+
+            playbackTimeout = setTimeout(() => {
+                mainViewerVideo.pause();
+                mainViewerVideo.load();
+            }, 15000);
+        }
 
         function updateViewer(index) {
+            clearTimeout(playbackTimeout);
+            mainViewerVideo.pause();
+
             const item = filmData[index];
             currentFilmIndex = index;
-            
-            clearTimeout(autoplayTimer);
+
             mainViewerVideo.poster = item.thumb;
             mainViewerVideo.src = item.video;
+            mainViewerVideo.load();
+
             viewerTitle.textContent = item.title;
+            viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
+
+            document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
+                thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
+            });
+            document.querySelectorAll('.film-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            scrollToThumbnail(index);
             
-            mainViewerVideo.play().catch(e => {});
-            autoplayTimer = setTimeout(() => mainViewerVideo.pause(), 10000);
+            playbackTimeout = setTimeout(() => {
+                startPlaybackLoop(index);
+            }, 5000);
         }
 
         filmData.forEach((item, index) => {
             const thumbDiv = document.createElement('div');
             thumbDiv.className = 'carousel-thumbnail';
             thumbDiv.style.backgroundImage = `url(${item.thumb})`;
+            thumbDiv.dataset.index = index;
+            thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
             thumbDiv.addEventListener('mouseenter', () => updateViewer(index));
             thumbDiv.addEventListener('click', () => {
-                videoIframe.src = item.video + "?autoplay=1";
+                mainViewerVideo.muted = true;
+                mainViewerVideo.pause();
+                clearTimeout(playbackTimeout);
+                
+                modalVideoPlayer.src = item.video;
                 openModal(videoModal);
+                modalVideoPlayer.play();
             });
             filmCarouselTrack.appendChild(thumbDiv);
-        });
-        
-        viewerPlayBtn.addEventListener('click', () => {
-             videoIframe.src = filmData[currentFilmIndex].video + "?autoplay=1";
-             openModal(videoModal);
+
+            const dot = document.createElement('span');
+            dot.className = 'film-dot';
+            dot.addEventListener('click', () => updateViewer(index));
+            filmDots.appendChild(dot);
         });
 
-        prevArrow.addEventListener('click', () => {
-            const newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
-            updateViewer(newIndex);
+        viewerPlayIcon.addEventListener('click', () => {
+            mainViewerVideo.muted = true;
+            mainViewerVideo.pause();
+            clearTimeout(playbackTimeout);
+            
+            modalVideoPlayer.src = filmData[currentFilmIndex].video;
+            openModal(videoModal);
+            modalVideoPlayer.play();
         });
 
-        nextArrow.addEventListener('click', () => {
-            const newIndex = (currentFilmIndex + 1) % filmData.length;
-            updateViewer(newIndex);
+        leftArrow.addEventListener('click', () => {
+            filmCarouselTrack.scrollBy({ left: -320, behavior: 'smooth' });
+        });
+        rightArrow.addEventListener('click', () => {
+            filmCarouselTrack.scrollBy({ left: 320, behavior: 'smooth' });
         });
         
         filmographyViewer.addEventListener('wheel', (e) => {
             e.preventDefault();
-            if (e.deltaY < 0) prevArrow.click();
-            else nextArrow.click();
+            let newIndex = currentFilmIndex;
+            if (e.deltaY < 0) {
+                newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+            } else {
+                newIndex = (currentFilmIndex + 1) % filmData.length;
+            }
+            updateViewer(newIndex);
+        }, { passive: false });
+
+        filmCarouselTrack.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            filmCarouselTrack.scrollLeft += e.deltaY;
         }, { passive: false });
 
         if (filmData.length > 0) updateViewer(0);
 
         // --- PHOTOGRAPHY ---
-        const photoGrid = document.getElementById('photo-grid');
-        photoData.forEach(photo => {
-            const item = document.createElement('div');
-            item.className = 'photo-item';
-            item.innerHTML = `
-                <img src="${photo.src}" alt="${photo.desc}">
-                <div class="description">${photo.desc}</div>
-            `;
-            item.addEventListener('click', () => {
-                imageEl.src = photo.src;
-                openModal(imageModal);
+        const photoSeriesList = document.querySelector('.photo-series-list ul');
+        const photoSeriesDisplay = document.querySelector('.photo-series-display');
+
+        photoSeries.forEach((series, index) => {
+            const li = document.createElement('li');
+            li.textContent = series.title;
+            li.dataset.series = index;
+            li.addEventListener('click', () => {
+                document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
+                li.classList.add('active');
+                displaySeries(index);
             });
-            photoGrid.appendChild(item);
+            photoSeriesList.appendChild(li);
         });
+
+        function displaySeries(index) {
+            photoSeriesDisplay.innerHTML = '';
+            const series = photoSeries[index];
+            series.photos.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'photo-item';
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'photo-image';
+                imageDiv.style.backgroundImage = `url(${photo.src})`;
+                imageDiv.addEventListener('click', () => {
+                    imageEl.src = photo.src;
+                    openModal(imageModal);
+                });
+                const descDiv = document.createElement('div');
+                descDiv.className = 'photo-description';
+                descDiv.innerHTML = `<p>${photo.desc}</p>`;
+                item.appendChild(imageDiv);
+                item.appendChild(descDiv);
+                photoSeriesDisplay.appendChild(item);
+            });
+        }
+
+        if (photoSeries.length > 0) {
+            photoSeriesList.firstChild.classList.add('active');
+            displaySeries(0);
+        }
     });
     </script>
 </body>
