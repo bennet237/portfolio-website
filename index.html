@@ -520,7 +520,7 @@
     <main>
         <section id="home" class="section">
             <div class="video-container">
-                <video id="home-video" poster="C:/Users/tefub/OneDrive/Desktop/Website/thumbs/demo_reel.png" muted></video>
+                <video id="home-video" poster="https://f000.backblazeb2.com/file/tefub-films/thumbs/demo_reel.png" muted></video>
                 <div class="play-button"><i class="fas fa-play"></i></div>
             </div>
         </section>
@@ -528,7 +528,7 @@
         <section id="about" class="section">
             <h2>ABOUT</h2>
             <div class="about-content">
-                <img src="C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/profile.jpg" alt="Bennet Tefu">
+                <img src="https://f000.backblazeb2.com/file/tefub-films/photography/profile.jpg" alt="Bennet Tefu">
                 <p>
                     Hi! My name is Bennet and I'm a recent graduate from <a href="https://www.carleton.edu/">Carleton College</a> in Northfield, MN, with a degree in Cinema & Film Studies (CAMS).
                     I consider myself a filmmaker because my education has taught me essential skills in the filmmaking pipeline: screenwriting, directing, cinematography, and editing.
@@ -632,23 +632,23 @@
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
-            { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/the_victorias.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/The_Victorias.mp4" },
-            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/diary_of_cecelia_stone.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Diary_of_Cecelia_Stone.mp4" },
-            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/higher_living.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Higher_Living.mp4" },
-            { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/lucky_fish.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Lucky_Fish.mp4" },
-            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/9-5.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/9-5.mp4" },
-            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/this_is_life.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/This_is_Life.mp4" },
-            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/love_dive.jpg", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Love_Dive.mp4" },
+            { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f000.backblazeb2.com/file/tefub-films/film/The_Victorias.mp4" },
+            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f000.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
+            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f000.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
+            { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f000.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
+            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f000.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
+            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f000.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
+            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew", role: "Editor", thumb: "https://f000.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f000.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" },
         ];
 
         const photoData = [
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4221.jpg", desc: "A wholesome moment between an alum and a student worker during check-in." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5560.jpg", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_3996.jpg", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4453.jpg", desc: "Excited to be back on campus." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5092.jpg", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4291.jpg", desc: "An alum checking out some useful items for the weekend." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5520.jpg", desc: "Picnic at the Bald Spot." }
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.jpg", desc: "A wholesome moment between an alum and a student worker during check-in." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.jpg", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_3996.jpg", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4453.jpg", desc: "Excited to be back on campus." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5092.jpg", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4291.jpg", desc: "An alum checking out some useful items for the weekend." },
+            { src: "https://f000.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5520.jpg", desc: "Picnic at the Bald Spot." }
         ];
 
         const photoSeries = [
@@ -659,13 +659,13 @@
             {
                 title: "Film Noir ",
                 photos: [
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
+                    { src: "https://f000.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
                 ]
             },
             {
                 title: "Headshots",
                 photos: [
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/headshots/IMG_2942.jpg", desc: "" }
+                    { src: "https://f000.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "" }
                 ]
             }
         ];
@@ -814,7 +814,7 @@
 
         // --- HOME REEL ---
         const homeVideo = document.getElementById('home-video');
-        homeVideo.src = "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/demo_reel.mp4";
+        homeVideo.src = "https://f000.backblazeb2.com/file/tefub-films/films/demo_reel.mp4";
 
         const playButton = document.querySelector('#home .play-button');
         playButton.addEventListener('click', () => {
