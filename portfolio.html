@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bennet Tefu - Filmmaker</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Basic Reset */
         * {
@@ -124,15 +124,34 @@
         /* About Section */
         .about-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            max-width: 900px;
+            max-width: 1200px;
             text-align: left;
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.5); /* Changed to red shadow */
         }
 
         .about-content img {
-            width: 300px;
-            margin-right: 40px;
+            width: 400px; /* Increased from 300px */
+            margin-bottom: 30px;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-content p {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .about-content hr {
+            width: 100%;
+            border: 1px solid #555;
+            margin: 20px 0;
         }
 
         /* Filmography Section */
@@ -247,12 +266,12 @@
         .carousel-track {
             display: flex;
             gap: 20px;
-            overflow-x: hidden; /* Changed from auto to hidden */
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
         .carousel-track::-webkit-scrollbar { display: none; }
-        .carousel-track { -ms-overflow-style: none; scrollbar-width: none; } /* Firefox */
+        .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
         .carousel-thumbnail {
             min-width: 300px;
@@ -356,13 +375,15 @@
             overflow-y: auto;
             padding: 20px;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Changed to flex-start to ensure text starts at top */
+            font-size: 0.95em; /* Slightly smaller font to help fit longer text */
         }
 
         .photo-description p {
             text-align: left;
             margin: 0;
             width: 100%;
+            line-height: 1.5; /* Improved readability */
         }
 
         /* Contact Form */
@@ -507,8 +528,31 @@
         <section id="about" class="section">
             <h2>ABOUT</h2>
             <div class="about-content">
-                <img src="https://images.pexels.com/photos/7794041/pexels-photo-7794041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="John Doe">
-                <p>I'm John Doe, an aspiring film director with a passion for storytelling through visual media. With a background in indie film production, I am currently seeking opportunities to bring my creative vision to life.</p>
+                <img src="C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/profile.jpg" alt="Bennet Tefu">
+                <p>
+                    Hi! My name is Bennet and I'm a recent graduate from <a href="https://www.carleton.edu/">Carleton College</a> in Northfield, MN, with a degree in Cinema & Film Studies (CAMS).
+                    I consider myself a filmmaker because my education has taught me essential skills in the filmmaking pipeline: screenwriting, directing, cinematography, and editing.
+                    It also reconnected me with my childhood interest in drawing, through storyboarding, which was a deciding factor for me dropping my Computer Science degree for 
+                    CAMS. Being able to imagine different varieties of a potential shot in your head, put it down on paper, and see how it shapes or reshapes itself through
+                    directing, cinematography, and editing felt good after I shot my first short film. Since then, I have poured myself into any project to improve my skills
+                    because I want to use this medium to tell stories I truly care about.
+                </p>
+                <hr>
+                <p>
+                    I'm currently working on two screenplays all based on true stories. One is a short film about a tragic event that happened to two of my friends, and the other
+                    is a tv pilot based on my experience navigating the socio-political crises in Cameroon, from its start in 2016 till when I left for college in 2021 (It's still ongoing).
+                    I'm also editing a documentary I shot about the filmmaking process at <a href="https://lidenfilms.jp/">LIDENFILMS</a>, an animation studio in Tokyo, Japan. Initially, I went there to investigate the cultural, economic, 
+                    and political factors that affect the poor work conditions of Japanese animators but none of the animators I spoke with wanted to talk about it. It's an issue I have researched
+                    for a long time and care deeply about, but I realized I had to do an in-depth study before tackling it in the future.
+                </p>
+                <hr>
+                <p>
+                    <p><b>Proficiency:</b> Directing, Editing, Cinematography</p> 
+                    <p><b>Cameras:</b> Sony PXW-FX5 Mark II, Canon C100 Mark II, Sony HXR-NX100, Canon EOS 80D DSLR, Canon EOS 60D DSLR, </p> 
+                    <p><b>Software:</b> Adobe Premiere Pro, Adobe After Effects, WriterDuet, Canva, Microsoft (Word, Excel, Powerpoint), Google (Docs, Sheets, Slides).</p>
+
+ 
+                </p>
             </div>
         </section>
 
@@ -527,7 +571,6 @@
                 </div>
                 <video id="main-viewer-video" loop playsinline></video>
                 <div class="film-dots" id="film-dots"></div>
-ogenic
             </div>
             <h3>Films</h3>
             <div class="film-carousel">
@@ -549,7 +592,7 @@ ogenic
 
         <section id="contact" class="section">
             <h2>CONTACT</h2>
-            <form class="contact-form" action="https://formspree.io/your-endpoint" method="POST">
+            <form class="contact-form" action="https://formspree.io/f/myzpeazz" method="POST">
                 <label for="email">Your Email</label>
                 <input type="email" id="email" name="email" required>
                 <label for="subject">Subject</label>
@@ -563,12 +606,11 @@ ogenic
 
     <footer>
         <div class="social-links">
-            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-vimeo"></i></a>
+            <a href="https://www.linkedin.com/in/bennet-tefu-319484204/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:tefubennet23@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.carleton.edu/search/?q=bennet&as_sitesearch=www.carleton.edu%2Fadmissions" target="_blank"><i class="fa-solid fa-blog"></i></a>
         </div>
-        <p>© 2025 John Doe. All rights reserved.</p>
+        <p>© 2025 Bennet Tefu. All rights reserved.</p>
     </footer>
 
     <div class="modal video-modal">
@@ -591,22 +633,22 @@ ogenic
         // --- DATA ---
         const filmData = [
             { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/the_victorias.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/The_Victorias.mp4" },
-            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/diary_of_cecelia_stone.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Diary_of_Cecelia_Stone.mp4" },
+            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/diary_of_cecelia_stone.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Diary_of_Cecelia_Stone.mp4" },
             { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/higher_living.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Higher_Living.mp4" },
             { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/lucky_fish.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Lucky_Fish.mp4" },
-            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/9-5.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/9-5.mp4" },
+            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/9-5.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/9-5.mp4" },
             { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/this_is_life.png", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/This_is_Life.mp4" },
             { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew", role: "Editor", thumb: "C:/Users/tefub/OneDrive/Desktop/Website/thumbs/love_dive.jpg", video: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_videos/Love_Dive.mp4" },
         ];
 
         const photoData = [
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4453.jpg", desc: "A quiet moment of reflection captured in the golden hour." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5092.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5520.jpg", desc: "The powerful and mesmerizing flow of a secluded waterfall." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5560.jpg", desc: "Stark contrasts between the serene lake and dramatic mountain peaks." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4221.jpg", desc: "A quiet moment of reflection captured in the golden hour." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunionIMG_4291.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_3996.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." }
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4221.jpg", desc: "A wholesome moment between an alum and a student worker during check-in." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5560.jpg", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_3996.jpg", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4453.jpg", desc: "Excited to be back on campus." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5092.jpg", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_4291.jpg", desc: "An alum checking out some useful items for the weekend." },
+            { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/reunion/IMG_5520.jpg", desc: "Picnic at the Bald Spot." }
         ];
 
         const photoSeries = [
@@ -615,19 +657,15 @@ ogenic
                 photos: photoData
             },
             {
-                title: "Film Noir",
+                title: "Film Noir ",
                 photos: [
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/headshots/IMG_2942.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." }
+                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
                 ]
             },
             {
                 title: "Headshots",
                 photos: [
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/noir/mystery.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/seduction.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/emotion.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/femme_fatale.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." },
-                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/lonely_detective.jpg", desc: "Exploring the raw, untamed beauty of tropical landscapes." }
+                    { src: "C:/Users/tefub/OneDrive/Desktop/Website/portfolio_photos/headshots/IMG_2942.jpg", desc: "" }
                 ]
             }
         ];
