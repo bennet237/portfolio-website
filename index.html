@@ -161,7 +161,6 @@
             position: relative;
             background-size: cover;
             background-position: center;
-            display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 40px;
@@ -241,7 +240,6 @@
             display: flex;
             gap: 20px;
             overflow-x: auto;
-            overflow-y: hidden;
             scroll-behavior: smooth;
         }
 
@@ -481,7 +479,7 @@
         @media (max-width: 768px) {
             /* Header */
             header {
-                padding: 5px 10px; /* Reduced padding for smaller header */
+                padding: 5px 10px;
                 flex-direction: column;
                 align-items: center;
             }
@@ -493,9 +491,9 @@
                 flex-direction: column;
                 align-items: center;
                 margin-top: 5px;
+                gap: 2px; /* Reduced to approximate 0.5 line spacing */
             }
             nav a {
-                margin: 1px 0; /* Minimal margin for 0.8 line spacing */
                 font-size: 1.1em;
             }
             /* Home */
@@ -518,19 +516,19 @@
                 bottom: 0;
                 left: 0;
                 background: linear-gradient(to top, rgba(20, 20, 20, 0.9) 70%, transparent);
-                padding: 10px; /* Reduced padding to fit more text */
+                padding: 10px;
             }
             .viewer-info {
                 align-items: flex-start;
             }
             .viewer-info h3 {
-                font-size: 1.2em; /* Smaller title */
-                margin-bottom: 5px; /* Reduced margin */
+                font-size: 1.2em;
+                margin-bottom: 8px; /* Increased margin */
             }
             .viewer-info p {
-                font-size: 0.8em; /* Smaller text */
-                line-height: 1.1; /* Tighter line spacing */
-                margin-bottom: 5px; /* Reduced margin */
+                font-size: 0.8em;
+                line-height: 1.1;
+                margin-bottom: 8px; /* Increased margin */
                 word-wrap: break-word;
             }
             .carousel-thumbnail {
@@ -700,7 +698,7 @@
     </footer>
 
     <div class="modal video-modal">
-       しております        <div class="modal-content">
+        <div class="modal-content">
             <span class="close">×</span>
             <video id="modalVideoPlayer" controls style="width:100%; height:auto;"></video>
         </div>
@@ -922,6 +920,24 @@
 
         let currentFilmIndex = 0;
 
+        function scrollToThumbnail(index) {
+            const thumbnail = document.querySelector(`[data-index="${index}"]`);
+            if (thumbnail) {
+                const trackRect = filmCarouselTrack.getBoundingClientRect();
+                const thumbRect = thumbnail.getBoundingClientRect();
+                const thumbnailLeft = thumbRect.left - trackRect.left + filmCarouselTrack.scrollLeft;
+                const thumbnailRight = thumbnailLeft + thumbRect.width;
+                const trackWidth = trackRect.width;
+                
+                if (thumbnailLeft < filmCarouselTrack.scrollLeft || thumbnailRight > filmCarouselTrack.scrollLeft + trackWidth) {
+                    filmCarouselTrack.scrollTo({
+                        left: thumbnailLeft - (trackWidth - thumbRect.width) / 2,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
         function restartCurrentVideo() {
             clearTimeout(playbackTimeout);
             
@@ -949,7 +965,7 @@
             }, 15000);
         }
 
-        function updateViewer(index) {
+        function updateViewer(index, shouldScroll = true) {
             clearTimeout(playbackTimeout);
             mainViewerVideo.pause();
 
@@ -971,6 +987,10 @@
                 dot.classList.toggle('active', i === index);
             });
 
+            if (shouldScroll) {
+                scrollToThumbnail(index);
+            }
+
             playbackTimeout = setTimeout(() => {
                 startPlaybackLoop(index);
             }, 5000);
@@ -982,10 +1002,10 @@
             thumbDiv.style.backgroundImage = `url(${item.thumb})`;
             thumbDiv.dataset.index = index;
             thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
-            thumbDiv.addEventListener('mouseenter', () => updateViewer(index));
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index, false));
             thumbDiv.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                updateViewer(index);
+                updateViewer(index, false);
             }, { passive: false });
             thumbDiv.addEventListener('click', () => {
                 mainViewerVideo.muted = true;
