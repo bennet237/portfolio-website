@@ -242,12 +242,12 @@
             gap: 20px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
 
         .carousel-track::-webkit-scrollbar {
-            display: none;  /* Chrome, Safari, Opera */
+            display: none; /* Chrome, Safari, Opera */
         }
 
         .carousel-thumbnail {
@@ -257,12 +257,11 @@
             background-position: center;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, border 0.2s ease;
             position: relative;
         }
 
-        .carousel-thumbnail:hover,
-        .carousel-thumbnail.active {
+        .carousel-thumbnail:hover, .carousel-thumbnail.touched {
             transform: scale(1.05);
             border: 2px solid #E50914;
         }
@@ -283,8 +282,7 @@
             pointer-events: none;
         }
 
-        .carousel-thumbnail:hover .play-icon,
-        .carousel-thumbnail.active .play-icon {
+        .carousel-thumbnail:hover .play-icon, .carousel-thumbnail.touched .play-icon {
             opacity: 1;
         }
 
@@ -494,6 +492,7 @@
                 padding: 10px 20px;
                 flex-direction: column;
                 align-items: center;
+                max-height: 25vh;
             }
             .filmmaker-name {
                 font-size: 1em;
@@ -502,7 +501,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 10px;
+                margin-top: 5px;
             }
             nav a {
                 margin: 5px 0;
@@ -546,9 +545,6 @@
             /* Photography */
             .photo-series-wrapper {
                 flex-direction: column;
-            }
-            .photo-series-wrapper {
-                width: 100%;
             }
             .photo-series-list {
                 width: 100%;
@@ -627,10 +623,10 @@
         <section id="about" class="section">
             <h2>ABOUT</h2>
             <div class="about-content">
-                <img src="https://f004.backblazeb2.com/file/tefub-films/photography/profile.jpg" alt="Bennet Tefu">
+                <img src="https://f004.backblazeb2.com/file/tefub-films/photography/profile.JPG" alt="Bennet Tefu">
                 <p>
                     Hi! My name is Bennet and I'm a recent graduate from <a href="https://www.carleton.edu/">Carleton College</a> in Northfield, MN, with a degree in Cinema & Film Studies (CAMS).
-                    I consider myself a filmmaker because my education has taught me essential skills in the filmmaking pipeline: screenwriting, director, cinematography, and editing.
+                    I consider myself a filmmaker because my education has taught me essential skills in the filmmaking pipeline: screenwriting, directing, cinematography, and editing.
                     It also reconnected me with my childhood interest in drawing, through storyboarding, which was a deciding factor for me dropping my Computer Science degree for 
                     CAMS. Being able to imagine different varieties of a potential shot in your head, put it down on paper, and see how it shapes or reshapes itself through
                     directing, cinematography, and editing felt good after I shot my first short film. Since then, I have poured myself into any project to improve my skills
@@ -639,7 +635,7 @@
                 <hr>
                 <p>
                     I'm currently working on two screenplays all based on true stories. One is a short film about a tragic event that happened to two of my friends, and the other
-                    is a pilot based on my experience navigating the socio-political crises in Cameroon, from its start in 2016 till when I left for college in 2021 (It's still ongoing).
+                    is a tv pilot based on my experience navigating the socio-political crises in Cameroon, from its start in 2016 till when I left for college in 2021 (It's still ongoing).
                     I'm also editing a documentary I shot about the filmmaking process at <a href="https://lidenfilms.jp/">LIDENFILMS</a>, an animation studio in Tokyo, Japan. Initially, I went there to investigate the cultural, economic, 
                     and political factors that affect the poor work conditions of Japanese animators but none of the animators I spoke with wanted to talk about it. It's an issue I have researched
                     for a long time and care deeply about, but I realized I had to do an in-depth study before tackling it in the future.
@@ -737,13 +733,13 @@
         ];
 
         const photoData = [
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.jpg", desc: "A wholesome moment between an alum and a student worker during check-in." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.jpg", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_3996.jpg", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4453.jpg", desc: "Excited to be back on campus." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5092.jpg", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4291.jpg", desc: "An alum checking out some useful items for the weekend." },
-            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5520.jpg", desc: "Picnic at the Bald Spot." }
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.JPG", desc: "A wholesome moment between an alum and a student worker during check-in." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.JPG", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_3996.JPG", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4453.JPG", desc: "Excited to be back on campus." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5092.JPG", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4291.JPG", desc: "An alum checking out some useful items for the weekend." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5520.JPG", desc: "Picnic at the Bald Spot." }
         ];
 
         const photoSeries = [
@@ -760,7 +756,7 @@
             {
                 title: "Headshots",
                 photos: [
-                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/photo1.jpg", desc: "" }
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "" }
                 ]
             }
         ];
@@ -824,8 +820,8 @@
 
         function openModal(modal) { modal.style.display = 'flex'; }
 
-        document.querySelectorAll('.modal .close').forEach(closeBtn => {
-            closeBtn.addEventListener('click', (e) => {
+        document.querySelectorAll('.modal .close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 modal.style.display = 'none';
                 if (modal.classList.contains('video-modal')) {
@@ -978,7 +974,7 @@
             }, 15000);
         }
 
-        function updateViewer(index, fromTouch = false) {
+        function updateViewer(index) {
             clearTimeout(playbackTimeout);
             mainViewerVideo.pause();
 
@@ -995,7 +991,7 @@
 
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
                 thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
-                thumb.classList.toggle('active', parseInt(thumb.dataset.index) === index && fromTouch);
+                thumb.classList.remove('touched');
             });
             document.querySelectorAll('.film-dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
@@ -1014,24 +1010,19 @@
             thumbDiv.style.backgroundImage = `url(${item.thumb})`;
             thumbDiv.dataset.index = index;
             thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
-            
-            // Mouse events
             thumbDiv.addEventListener('mouseenter', () => {
+                if (window.matchMedia("(hover: hover)").matches) {
+                    updateViewer(index);
+                }
+            });
+            thumbDiv.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                thumbDiv.classList.add('touched');
                 updateViewer(index);
             });
-            
-            // Touch events
-            let touchTimeout;
-            thumbDiv.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                touchTimeout = setTimeout(() => {
-                    updateViewer(index, true);
-                }, 300);
-            });
             thumbDiv.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                clearTimeout(touchTimeout);
-                if (!thumbDiv.classList.contains('active')) {
+                touchEndX = e.changedTouches[0].clientX;
+                if (Math.abs(touchEndX - touchStartX) < 10) {
                     mainViewerVideo.muted = true;
                     mainViewerVideo.pause();
                     clearTimeout(playbackTimeout);
@@ -1039,25 +1030,17 @@
                     openModal(videoModal);
                     modalVideoPlayer.play();
                 }
-                setTimeout(() => {
-                    thumbDiv.classList.remove('active');
-                }, 100);
             });
-            thumbDiv.addEventListener('touchcancel', () => {
-                clearTimeout(touchTimeout);
+            thumbDiv.addEventListener('click', (e) => {
+                if (window.matchMedia("(hover: hover)").matches) {
+                    mainViewerVideo.muted = true;
+                    mainViewerVideo.pause();
+                    clearTimeout(playbackTimeout);
+                    modalVideoPlayer.src = item.video;
+                    openModal(videoModal);
+                    modalVideoPlayer.play();
+                }
             });
-
-            // Click event for mouse
-            thumbDiv.addEventListener('click', () => {
-                mainViewerVideo.muted = true;
-                mainViewerVideo.pause();
-                clearTimeout(playbackTimeout);
-                
-                modalVideoPlayer.src = item.video;
-                openModal(videoModal);
-                modalVideoPlayer.play();
-            });
-            
             filmCarouselTrack.appendChild(thumbDiv);
 
             const dot = document.createElement('span');
@@ -1076,30 +1059,6 @@
             modalVideoPlayer.play();
         });
 
-        // Swipe handling for main viewer
-        filmographyViewer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        filmographyViewer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            if (touchStartX - touchEndX > swipeThreshold) {
-                // Swipe left
-                const newIndex = (currentFilmIndex + 1) % filmData.length;
-                updateViewer(newIndex);
-            } else if (touchEndX - touchStartX > swipeThreshold) {
-                // Swipe right
-                const newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
-                updateViewer(newIndex);
-            }
-        }
-
-        // Wheel handling for mouse
         filmographyViewer.addEventListener('wheel', (e) => {
             e.preventDefault();
             let newIndex = currentFilmIndex;
@@ -1110,6 +1069,24 @@
             }
             updateViewer(newIndex);
         }, { passive: false });
+
+        filmographyViewer.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        filmographyViewer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 50) {
+                let newIndex = currentFilmIndex;
+                if (swipeDistance > 0) {
+                    newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+                } else {
+                    newIndex = (currentFilmIndex + 1) % filmData.length;
+                }
+                updateViewer(newIndex);
+            }
+        });
 
         filmCarouselTrack.addEventListener('wheel', (e) => {
             e.preventDefault();
