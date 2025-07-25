@@ -241,13 +241,8 @@
             display: flex;
             gap: 20px;
             overflow-x: auto;
+            overflow-y: hidden;
             scroll-behavior: smooth;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .carousel-track::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
         }
 
         .carousel-thumbnail {
@@ -257,14 +252,11 @@
             background-position: center;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s ease, border 0.2s ease;
+            transition: transform 0.2s ease;
             position: relative;
         }
 
-        .carousel-thumbnail:hover, .carousel-thumbnail.touched {
-            transform: scale(1.05);
-            border: 2px solid #E50914;
-        }
+        .carousel-thumbnail:hover { transform: scale(1.05); }
 
         .carousel-thumbnail.selected {
             border: 2px solid #E50914;
@@ -282,7 +274,7 @@
             pointer-events: none;
         }
 
-        .carousel-thumbnail:hover .play-icon, .carousel-thumbnail.touched .play-icon {
+        .carousel-thumbnail:hover .play-icon {
             opacity: 1;
         }
 
@@ -492,7 +484,6 @@
                 padding: 10px 20px;
                 flex-direction: column;
                 align-items: center;
-                max-height: 25vh;
             }
             .filmmaker-name {
                 font-size: 1em;
@@ -501,7 +492,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 5px;
+                margin-top: 10px;
             }
             nav a {
                 margin: 5px 0;
@@ -597,6 +588,21 @@
             .about-content p {
                 font-size: 1em;
             }
+            /* Text clamping for viewer info */
+            .viewer-logline {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .viewer-desc {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     </style>
 </head>
@@ -656,8 +662,8 @@
                     <div class="viewer-info">
                         <div class="info-text">
                             <h3 id="viewer-title"></h3>
-                            <p id="viewer-logline"></p>
-                            <p id="viewer-description"></p>
+                            <p id="viewer-logline" class="viewer-logline"></p>
+                            <p id="viewer-description" class="viewer-desc"></p>
                         </div>
                         <i class="fas fa-play play-icon" id="viewer-play-icon"></i>
                     </div>
@@ -926,8 +932,6 @@
         const filmDots = document.getElementById('film-dots');
 
         let currentFilmIndex = 0;
-        let touchStartX = 0;
-        let touchEndX = 0;
 
         function scrollToThumbnail(index) {
             const thumbnail = document.querySelector(`[data-index="${index}"]`);
@@ -991,7 +995,6 @@
 
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
                 thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
-                thumb.classList.remove('touched');
             });
             document.querySelectorAll('.film-dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
@@ -1010,36 +1013,19 @@
             thumbDiv.style.backgroundImage = `url(${item.thumb})`;
             thumbDiv.dataset.index = index;
             thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
-            thumbDiv.addEventListener('mouseenter', () => {
-                if (window.matchMedia("(hover: hover)").matches) {
-                    updateViewer(index);
-                }
-            });
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index));
             thumbDiv.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                thumbDiv.classList.add('touched');
+                e.preventDefault();
                 updateViewer(index);
-            });
-            thumbDiv.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].clientX;
-                if (Math.abs(touchEndX - touchStartX) < 10) {
-                    mainViewerVideo.muted = true;
-                    mainViewerVideo.pause();
-                    clearTimeout(playbackTimeout);
-                    modalVideoPlayer.src = item.video;
-                    openModal(videoModal);
-                    modalVideoPlayer.play();
-                }
-            });
-            thumbDiv.addEventListener('click', (e) => {
-                if (window.matchMedia("(hover: hover)").matches) {
-                    mainViewerVideo.muted = true;
-                    mainViewerVideo.pause();
-                    clearTimeout(playbackTimeout);
-                    modalVideoPlayer.src = item.video;
-                    openModal(videoModal);
-                    modalVideoPlayer.play();
-                }
+            }, { passive: false });
+            thumbDiv.addEventListener('click', () => {
+                mainViewerVideo.muted = true;
+                mainViewerVideo.pause();
+                clearTimeout(playbackTimeout);
+                
+                modalVideoPlayer.src = item.video;
+                openModal(videoModal);
+                modalVideoPlayer.play();
             });
             filmCarouselTrack.appendChild(thumbDiv);
 
@@ -1070,28 +1056,36 @@
             updateViewer(newIndex);
         }, { passive: false });
 
-        filmographyViewer.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        });
-
-        filmographyViewer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].clientX;
-            const swipeDistance = touchEndX - touchStartX;
-            if (Math.abs(swipeDistance) > 50) {
-                let newIndex = currentFilmIndex;
-                if (swipeDistance > 0) {
-                    newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
-                } else {
-                    newIndex = (currentFilmIndex + 1) % filmData.length;
-                }
-                updateViewer(newIndex);
-            }
-        });
-
         filmCarouselTrack.addEventListener('wheel', (e) => {
             e.preventDefault();
             filmCarouselTrack.scrollLeft += e.deltaY;
         }, { passive: false });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        filmographyViewer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        filmographyViewer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    const nextIndex = (currentFilmIndex + 1) % filmData.length;
+                    updateViewer(nextIndex);
+                } else {
+                    const prevIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+                    updateViewer(prevIndex);
+                }
+            }
+        }
 
         if (filmData.length > 0) updateViewer(0);
 
