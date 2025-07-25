@@ -481,7 +481,7 @@
         @media (max-width: 768px) {
             /* Header */
             header {
-                padding: 10px 20px;
+                padding: 5px 10px; /* Reduced padding for smaller header */
                 flex-direction: column;
                 align-items: center;
             }
@@ -492,10 +492,10 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 10px;
+                margin-top: 5px;
             }
             nav a {
-                margin: 5px 0;
+                margin: 1px 0; /* Minimal margin for 0.8 line spacing */
                 font-size: 1.1em;
             }
             /* Home */
@@ -518,16 +518,20 @@
                 bottom: 0;
                 left: 0;
                 background: linear-gradient(to top, rgba(20, 20, 20, 0.9) 70%, transparent);
-                padding: 20px;
+                padding: 10px; /* Reduced padding to fit more text */
             }
             .viewer-info {
                 align-items: flex-start;
             }
             .viewer-info h3 {
-                font-size: 1.8em;
+                font-size: 1.2em; /* Smaller title */
+                margin-bottom: 5px; /* Reduced margin */
             }
             .viewer-info p {
-                font-size: 1em;
+                font-size: 0.8em; /* Smaller text */
+                line-height: 1.1; /* Tighter line spacing */
+                margin-bottom: 5px; /* Reduced margin */
+                word-wrap: break-word;
             }
             .carousel-thumbnail {
                 min-width: 200px;
@@ -588,21 +592,6 @@
             .about-content p {
                 font-size: 1em;
             }
-            /* Text clamping for viewer info */
-            .viewer-logline {
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            .viewer-desc {
-                display: -webkit-box;
-                -webkit-line-clamp: 1;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
         }
     </style>
 </head>
@@ -662,13 +651,13 @@
                     <div class="viewer-info">
                         <div class="info-text">
                             <h3 id="viewer-title"></h3>
-                            <p id="viewer-logline" class="viewer-logline"></p>
-                            <p id="viewer-description" class="viewer-desc"></p>
+                            <p id="viewer-logline"></p>
+                            <p id="viewer-description"></p>
                         </div>
                         <i class="fas fa-play play-icon" id="viewer-play-icon"></i>
                     </div>
                 </div>
-                <video id="main-viewer-video" loop playsinline></video>
+                <video id="main-viewer-video" loop playsinline muted></video>
                 <div class="film-dots" id="film-dots"></div>
             </div>
             <h3>Films</h3>
@@ -711,7 +700,7 @@
     </footer>
 
     <div class="modal video-modal">
-        <div class="modal-content">
+       しております        <div class="modal-content">
             <span class="close">×</span>
             <video id="modalVideoPlayer" controls style="width:100%; height:auto;"></video>
         </div>
@@ -933,24 +922,6 @@
 
         let currentFilmIndex = 0;
 
-        function scrollToThumbnail(index) {
-            const thumbnail = document.querySelector(`[data-index="${index}"]`);
-            if (thumbnail) {
-                const trackRect = filmCarouselTrack.getBoundingClientRect();
-                const thumbRect = thumbnail.getBoundingClientRect();
-                const thumbnailLeft = thumbRect.left - trackRect.left + filmCarouselTrack.scrollLeft;
-                const thumbnailRight = thumbnailLeft + thumbRect.width;
-                const trackWidth = trackRect.width;
-                
-                if (thumbnailLeft < filmCarouselTrack.scrollLeft || thumbnailRight > filmCarouselTrack.scrollLeft + trackWidth) {
-                    filmCarouselTrack.scrollTo({
-                        left: thumbnailLeft - (trackWidth - thumbRect.width) / 2,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        }
-
         function restartCurrentVideo() {
             clearTimeout(playbackTimeout);
             
@@ -1000,8 +971,6 @@
                 dot.classList.toggle('active', i === index);
             });
 
-            scrollToThumbnail(index);
-            
             playbackTimeout = setTimeout(() => {
                 startPlaybackLoop(index);
             }, 5000);
