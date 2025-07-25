@@ -240,6 +240,7 @@
             display: flex;
             gap: 20px;
             overflow-x: auto;
+            overflow-y: hidden; /* Added to remove vertical scrollbar */
             scroll-behavior: smooth;
         }
 
@@ -335,7 +336,7 @@
             cursor: pointer;
         }
 
-        .photo-image:hover {
+        .pxhoto-image:hover {
             transform: scale(1.05);
         }
 
@@ -755,46 +756,12 @@
         ];
 
         // --- GENERAL SETUP ---
-        let homeTimeout;
-        let playbackTimeout;
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
-                    if (entry.target.id === 'home') {
-                        const homeVideo = document.getElementById('home-video');
-                        homeVideo.load(); // Show poster
-                        clearTimeout(homeTimeout);
-                        homeTimeout = setTimeout(() => {
-                            homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                            homeVideo.onended = () => {
-                                homeVideo.load(); // Show poster
-                                homeTimeout = setTimeout(() => {
-                                    homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                                }, 30000);
-                            };
-                        }, 15000);
-                    } else if (entry.target.id === 'filmography') {
-                        setTimeout(() => {
-                            if (filmData.length > 0) {
-                                restartCurrentVideo();
-                            }
-                        }, 500);
-                    }
                 } else {
                     entry.target.classList.remove('in-view');
-                    if (entry.target.id === 'home') {
-                        const homeVideo = document.getElementById('home-video');
-                        homeVideo.pause();
-                        homeVideo.load(); // Show poster
-                        clearTimeout(homeTimeout);
-                        homeVideo.onended = null;
-                    } else if (entry.target.id === 'filmography') {
-                        const mainViewerVideo = document.getElementById('main-viewer-video');
-                        mainViewerVideo.pause();
-                        clearTimeout(playbackTimeout);
-                    }
                 }
             });
         }, { threshold: 0.1 });
@@ -822,24 +789,6 @@
                     modalVideoPlayer.src = '';
                     const mainViewerVideo = document.getElementById('main-viewer-video');
                     mainViewerVideo.muted = false;
-                    if (document.querySelector('#filmography').classList.contains('in-view')) {
-                        restartCurrentVideo();
-                    }
-                    const homeSection = document.querySelector('#home');
-                    if (homeSection.classList.contains('in-view')) {
-                        const homeVideo = document.getElementById('home-video');
-                        homeVideo.load(); // Show poster
-                        clearTimeout(homeTimeout);
-                        homeTimeout = setTimeout(() => {
-                            homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                            homeVideo.onended = () => {
-                                homeVideo.load();
-                                homeTimeout = setTimeout(() => {
-                                    homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                                }, 30000);
-                            };
-                        }, 15000);
-                    }
                 }
                 if (modal.classList.contains('image-modal')) {
                     imageEl.src = '';
@@ -859,24 +808,6 @@
                         modalVideoPlayer.src = '';
                         const mainViewerVideo = document.getElementById('main-viewer-video');
                         mainViewerVideo.muted = false;
-                        if (document.querySelector('#filmography').classList.contains('in-view')) {
-                            restartCurrentVideo();
-                        }
-                        const homeSection = document.querySelector('#home');
-                        if (homeSection.classList.contains('in-view')) {
-                            const homeVideo = document.getElementById('home-video');
-                            homeVideo.load(); // Show poster
-                            clearTimeout(homeTimeout);
-                            homeTimeout = setTimeout(() => {
-                                homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                                homeVideo.onended = () => {
-                                    homeVideo.load();
-                                    homeTimeout = setTimeout(() => {
-                                        homeVideo.play().catch(e => console.error("Autoplay failed:", e));
-                                    }, 30000);
-                                };
-                            }, 15000);
-                        }
                     }
                     if (modal.classList.contains('image-modal')) {
                         imageEl.src = '';
@@ -902,7 +833,6 @@
 
         const playButton = document.querySelector('#home .play-button');
         playButton.addEventListener('click', () => {
-            homeVideo.pause();
             modalVideoPlayer.src = homeVideo.src;
             openModal(videoModal);
             modalVideoPlayer.play();
@@ -938,37 +868,7 @@
             }
         }
 
-        function restartCurrentVideo() {
-            clearTimeout(playbackTimeout);
-            
-            if (currentFilmIndex < filmData.length) {
-                const item = filmData[currentFilmIndex];
-                
-                mainViewerVideo.pause();
-                mainViewerVideo.load();
-                
-                playbackTimeout = setTimeout(() => {
-                    startPlaybackLoop(currentFilmIndex);
-                }, 5000);
-            }
-        }
-
-        function startPlaybackLoop(index) {
-            if (currentFilmIndex !== index) return;
-
-            mainViewerVideo.currentTime = 60;
-            mainViewerVideo.play().catch(e => console.error("Autoplay failed:", e));
-
-            playbackTimeout = setTimeout(() => {
-                mainViewerVideo.pause();
-                mainViewerVideo.load();
-            }, 15000);
-        }
-
         function updateViewer(index, shouldScroll = true) {
-            clearTimeout(playbackTimeout);
-            mainViewerVideo.pause();
-
             const item = filmData[index];
             currentFilmIndex = index;
 
@@ -990,10 +890,6 @@
             if (shouldScroll) {
                 scrollToThumbnail(index);
             }
-
-            playbackTimeout = setTimeout(() => {
-                startPlaybackLoop(index);
-            }, 5000);
         }
 
         filmData.forEach((item, index) => {
@@ -1009,9 +905,6 @@
             }, { passive: false });
             thumbDiv.addEventListener('click', () => {
                 mainViewerVideo.muted = true;
-                mainViewerVideo.pause();
-                clearTimeout(playbackTimeout);
-                
                 modalVideoPlayer.src = item.video;
                 openModal(videoModal);
                 modalVideoPlayer.play();
@@ -1026,9 +919,6 @@
 
         viewerPlayIcon.addEventListener('click', () => {
             mainViewerVideo.muted = true;
-            mainViewerVideo.pause();
-            clearTimeout(playbackTimeout);
-            
             modalVideoPlayer.src = filmData[currentFilmIndex].video;
             openModal(videoModal);
             modalVideoPlayer.play();
