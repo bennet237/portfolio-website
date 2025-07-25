@@ -6,7 +6,7 @@
     <title>Bennet Tefu - Filmmaker</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>  
+    <style>
         /* Basic Reset */
         * {
             margin: 0;
@@ -96,6 +96,10 @@
             text-align: left;
             width: 100%;
             max-width: 100%;
+        }
+
+        .section.in-view {
+            opacity: 1;
         }
 
         /* Home (Reel) Section */
@@ -817,8 +821,6 @@
                     <p><b>Proficiency:</b> Directing, Editing, Cinematography</p> 
                     <p><b>Cameras:</b> Sony PXW-FX5 Mark II, Canon C100 Mark II, Sony HXR-NX100, Canon EOS 80D DSLR, Canon EOS 60D DSLR, </p> 
                     <p><b>Software:</b> Adobe Premiere Pro, Adobe After Effects, WriterDuet, Canva, Microsoft (Word, Excel, Powerpoint), Google (Docs, Sheets, Slides).</p>
-
- 
                 </p>
             </div>
         </section>
@@ -1267,6 +1269,7 @@
                 const imageDiv = document.createElement('div');
                 imageDiv.className = 'photo-image';
                 imageDiv.style.backgroundImage = `url(${photo.src})`;
+                imageDiv.setAttribute('loading', 'lazy');
                 imageDiv.addEventListener('click', () => {
                     imageEl.src = photo.src;
                     openModal(imageModal);
