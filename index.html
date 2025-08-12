@@ -619,26 +619,32 @@
             <div class="about-content">
                 <img src="https://f004.backblazeb2.com/file/tefub-films/photography/profile.JPG" alt="Bennet Tefu">
                 <p>
-                    Hi! My name is Bennet and I'm a recent graduate from <a href="https://www.carleton.edu/">Carleton College</a> in Northfield, MN, with a degree in Cinema & Media Studies (CAMS).
-                    I consider myself a filmmaker because my education has taught me essential skills in the filmmaking pipeline: screenwriting, directing, cinematography, and editing.
-                    It also reconnected me with my childhood interest in drawing, through storyboarding, which was a deciding factor for me dropping my Computer Science degree for 
-                    CAMS. Being able to imagine different varieties of a potential shot in your head, put it down on paper, and see how it shapes or reshapes itself through
-                    directing, cinematography, and editing felt good after I shot my first short film. Since then, I have poured myself into any project to improve my skills
-                    because I want to use this medium to tell stories I truly care about.
+                    Recent Cinema & Media Studies graduate from <a href="https://www.carleton.edu/">Carleton College</a> with pre-to-post-production experience. Recipient of a 
+                    <a href="https://www.carleton.edu/fellowships/award-recipients/2023-24-carleton-funded-fellowship-recipients/#RG">$7,000 Professor Roy F. Grow Fellowship</a> 
+                    for documentary work in Japan, and proficient in cinematography, storyboarding, directing, content writing, and editing with creative instincts for visual effects and dynamic video editing.
                 </p>
                 <hr>
                 <p>
-                    I'm currently working on two screenplays all based on true stories. One is a short film about a tragic event that happened to two of my friends, and the other
-                    is a tv pilot based on my experience navigating the socio-political crises in Cameroon, from its start in 2016 till when I left for college in 2021 (It's still ongoing).
-                    I'm also editing a documentary I shot about the filmmaking process at <a href="https://lidenfilms.jp/">LIDENFILMS</a>, an animation studio in Tokyo, Japan. Initially, I went there to investigate the cultural, economic, 
-                    and political factors that affect the poor work conditions of Japanese animators but none of the animators I spoke with wanted to talk about it. It's an issue I have researched
-                    for a long time and care deeply about, but I realized I had to do an in-depth study before tackling it in the future.
+                    I also have a background in Computer Science, with experience in programming and web languages and computer systems which has greatly 
+                    informed my design skills and an understanding of management systems (WordPress CMS, Patron Portal), data-driven content decisions, technical knowledge and troubleshooting 
+                    skills for hardware (camera & audio equipment, computers, etc) and software (Adobe Premiere Pro, Photoshop, After Effects) systems.
                 </p>
                 <hr>
                 <p>
-                    <p><b>Proficiency:</b> Directing, Editing, Cinematography, Storyboarding</p> 
-                    <p><b>Cameras:</b> Sony PXW-FX5 Mark II, Canon C100 Mark II, Sony HXR-NX100, Canon EOS 80D DSLR, Canon EOS 60D DSLR, </p> 
-                    <p><b>Software:</b> Adobe Premiere Pro, Adobe After Effects, WriterDuet, Canva, Microsoft (Word, Excel, Powerpoint), Google (Docs, Sheets, Slides).</p>
+                    <h4>Awards & Recognitions:</h4>
+                        <ol>
+                            <li><b>$7,000 Professor Roy F. Grow Fellowship:</b> I was awarded this grant to make a documentary in Japan. Titled, <i>LIDENFILMS: Behind the Scenes</i>, 
+                            it explores the animation production pipeline of Japanese animated films ("anime") and the stories of the people involved at <a href="https://lidenfilms.jp/">Liden Films</a>, and animation studio in Tokyo.
+                            Footage was shot in the summer of 2024 and pre-production is currently undergoing, to be completed by end of September 2025. <i>Rough cut is a available only upon request</i></li>
+                            <li>Official Selection: <i>Diary of Cecelia Stone</i> | Carleton College Annual Student Film Exhibition 2024</li>
+                        </ol>
+                </p>
+                <hr>
+                <p>
+                    <p><b>Creative Skills:</b> Directing, Editing, Cinematography, Storyboarding, Content Writing (<a href="https://lidenfilms.jp/">view blog</a>), Motion Graphics, Inventory Management. </p> 
+                    <p><b>Technical Skills:</b> Adobe Premiere Pro, Photoshop, After Effects, WordPress CMS, Patron Portal, WriterDuet, Canva, Microsoft (Word, Excel, Powerpoint), Google (Docs, Sheets, Slides).</p>
+                    <p><b>Equipment:</b> Sony PXW-FX5 Mark II, Canon C100 Mark II, Sony HXR-NX100, Canon EOS DSLRs (80D & 60D) </p> 
+                    <p><b>Programming & Web Languages:</b> Python, JavaScript, HTML & CSS </p>
                 </p>
             </div>
         </section>
@@ -714,16 +720,24 @@
     </div>
 
     <script>
+    
+    const higher_living_url = "https://www.youtube.com/watch?v=4JtCrQ4ELsk";
+    const love_dive_url = "https://www.youtube.com/watch?v=HsEVQFLrEis";
+    const linkText = "Youtube";
+
+    const higher_living_message = `Also available on <a href="${higher_living_url}">${linkText}</a>`;
+    const love_dive_message = `Also available on <a href="${love_dive_url}">${linkText}</a>`;
+
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
             { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" },
             { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
-            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
+            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship." + higher_living_message, role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
             { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
             { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
             { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
-            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
+            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew." + love_dive_message, role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
         ];
 
         const photoData = [
