@@ -721,107 +721,18 @@
     </div>
 
     <script>
-    
-    const higher_living_url = "https://www.youtube.com/watch?v=4JtCrQ4ELsk";
-    const love_dive_url = "https://www.youtube.com/watch?v=HsEVQFLrEis";
-    const linkText = "Youtube";
-
-    const higher_living_message = ` Also available on <a href="${higher_living_url}">${linkText}</a>`;
-    const love_dive_message = ` Also available on <a href="${love_dive_url}">${linkText}</a>`;
 
     document.addEventListener('DOMContentLoaded', () => {
-    // --- DATA ---
-    const filmData = [
-        { 
-            id: 1, 
-            title: "The Victorias - Editor's Cut", 
-            logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst's documentary, The Victorias, for The New Yorker magazine.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" 
-        },
-        { 
-            id: 2, 
-            title: "Diary of Cecelia Stone", 
-            logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O'Hara's poem, Having A Coke With You.", 
-            role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" 
-        },
-        { 
-            id: 3, 
-            title: "Higher Living", 
-            logline: "After interfering with a radio tower, an alien fanatic believes she's made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", 
-            role: "Cinematographer, Storyboarder, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4",
-            youtubeUrl: "https://www.youtube.com/watch?v=4JtCrQ4ELsk"
-        },
-        { 
-            id: 4, 
-            title: "Lucky Fish - Editor's Cut", 
-            logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel's short film, Lucky Fish.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" 
-        },
-        { 
-            id: 5, 
-            title: "9-5", 
-            logline: "A busy, but telling, morning routine of a working class couple.", 
-            role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" 
-        },
-        { 
-            id: 6, 
-            title: "This Is Life", 
-            logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" 
-        },
-        { 
-            id: 7, 
-            title: "Love Dive", 
-            logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4",
-            youtubeUrl: "https://www.youtube.com/watch?v=HsEVQFLrEis"
-        }
-    ];
-
-    // Function to render film data
-    function renderFilms() {
-        const container = document.getElementById('films-container'); // Adjust selector as needed
-        
-        filmData.forEach(film => {
-            // Create logline with YouTube link if available
-            const loglineWithLink = film.youtubeUrl 
-                ? `${film.logline} Also available on <a href="${film.youtubeUrl}" target="_blank">YouTube</a>`
-                : film.logline;
-
-            // Create film element (adjust this structure to match your HTML)
-            const filmElement = document.createElement('div');
-            filmElement.className = 'film-item';
-            filmElement.innerHTML = `
-                <img src="${film.thumb}" alt="${film.title} thumbnail">
-                <h3>${film.title}</h3>
-                <p class="logline">${loglineWithLink}</p>
-                <p class="role"><strong>Role:</strong> ${film.role}</p>
-                <video controls>
-                    <source src="${film.video}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            `;
-            
-            container.appendChild(filmElement);
-        });
-    }
-
-    // Call the render function
-    renderFilms();
+        // --- DATA ---
+        const filmData = [
+            { id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" },
+            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
+            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
+            { id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
+            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
+            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
+            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
+        ];
 
         const photoData = [
             { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.JPG", desc: "A wholesome moment between an alum and a student worker during check-in." },
