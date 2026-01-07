@@ -865,7 +865,7 @@
                         pendingFilmId = film.id;
                         showPasswordModal();
                     } else {
-                        updateViewer(filmIndex);
+                        updateViewer(filmIndex, true, false);
                         document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
                     }
                 }
@@ -1030,7 +1030,7 @@
             }
         }
 
-        function updateViewer(index, shouldScroll = true) {
+        function updateViewer(index, shouldScroll = true, updateURLParam = false) {
             const item = filmData[index];
             currentFilmIndex = index;
 
@@ -1042,7 +1042,9 @@
             viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
 
-            updateURL(item.slug);
+            if (updateURLParam) {
+                updateURL(item.slug);
+            }
 
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
                 thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
@@ -1062,10 +1064,10 @@
             thumbDiv.style.backgroundImage = `url(${item.thumb})`;
             thumbDiv.dataset.index = index;
             thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
-            thumbDiv.addEventListener('mouseenter', () => updateViewer(index, false));
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index, false, false));
             thumbDiv.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                updateViewer(index, false);
+                updateViewer(index, false, false);
             }, { passive: false });
             thumbDiv.addEventListener('click', () => {
                 if (item.password) {
@@ -1082,7 +1084,7 @@
 
             const dot = document.createElement('span');
             dot.className = 'film-dot';
-            dot.addEventListener('click', () => updateViewer(index));
+            dot.addEventListener('click', () => updateViewer(index, true, true));
             filmDots.appendChild(dot);
         });
 
@@ -1107,7 +1109,7 @@
             } else {
                 newIndex = (currentFilmIndex + 1) % filmData.length;
             }
-            updateViewer(newIndex);
+            updateViewer(newIndex, true, true);
         }, { passive: false });
 
         filmCarouselTrack.addEventListener('wheel', (e) => {
@@ -1133,15 +1135,15 @@
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0) {
                     const nextIndex = (currentFilmIndex + 1) % filmData.length;
-                    updateViewer(nextIndex);
+                    updateViewer(nextIndex, true, true);
                 } else {
                     const prevIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
-                    updateViewer(prevIndex);
+                    updateViewer(prevIndex, true, true);
                 }
             }
         }
 
-        if (filmData.length > 0) updateViewer(0);
+        if (filmData.length > 0) updateViewer(0, true, false);
 
         // Check URL on page load
         checkURLForFilm();
