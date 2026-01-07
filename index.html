@@ -851,16 +851,17 @@
 
         function handleRouting() {
             const hash = window.location.hash;
+            // Only proceed if the hash explicitly points to a filmography path
             if (hash.startsWith('#filmography/')) {
                 const slug = hash.replace('#filmography/', '');
                 const filmIndex = filmData.findIndex(f => f.slug === slug);
                 if (filmIndex !== -1) {
                     updateViewer(filmIndex, true);
-                    // Optional: Smooth scroll to the filmography section if coming from a direct link
+                    // Smooth scroll to the filmography section
                     document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
                 }
             }
-        }
+}
 
         // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
@@ -987,7 +988,7 @@
             viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
 
-            // ADD THIS LINE to point the URL to the specific film slug
+            // ADD THIS LINE: It updates the URL only when a user interacts with the filmography
             history.replaceState(null, null, `#filmography/${item.slug}`);
 
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
@@ -1066,7 +1067,31 @@
             }
         }
 
-        if (filmData.length > 0) updateViewer(0);
+        // --- INITIALIZATION ---
+
+        // 1. Set the initial state of the filmography viewer WITHOUT updating the URL
+        if (filmData.length > 0) {
+            const item = filmData[0];
+            currentFilmIndex = 0;
+            mainViewerVideo.poster = item.thumb;
+            mainViewerVideo.src = item.video;
+            mainViewerVideo.load();
+            viewerTitle.textContent = item.title;
+            viewerLogline.textContent = item.logline;
+            viewerDescription.textContent = `Role: ${item.role}`;
+            
+            // Highlight the first dot/thumbnail visually
+            document.querySelectorAll('.carousel-thumbnail')[0]?.classList.add('selected');
+            document.querySelectorAll('.film-dot')[0]?.classList.add('active');
+        }
+
+        // 2. Listen for back/forward browser buttons
+        window.addEventListener('hashchange', handleRouting);
+
+        // 3. Only run routing on load if a specific film path is in the URL
+        if (window.location.hash.startsWith('#filmography/')) {
+            handleRouting();
+        }
 
         // --- PHOTOGRAPHY ---
         const photoSeriesList = document.querySelector('.photo-series-list ul');
