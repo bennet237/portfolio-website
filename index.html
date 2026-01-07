@@ -723,13 +723,76 @@
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
-            //{ id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" },
-            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
-            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
-            //{ id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
-            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
-            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
-            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
+            { 
+                id: 1, 
+                slug: "the-victorias",
+                title: "The Victorias - Editor's Cut", 
+                logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4",
+                isLocked: true 
+            },
+            { 
+                id: 2, 
+                slug: "diary-of-cecelia-stone",
+                title: "Diary of Cecelia Stone", 
+                logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death.", 
+                role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 3, 
+                slug: "higher-living",
+                title: "Higher Living", 
+                logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens.", 
+                role: "Cinematographer, Storyboarder, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 4, 
+                slug: "lucky-fish",
+                title: "Lucky Fish - Editor's Cut", 
+                logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4",
+                isLocked: true 
+            },
+            { 
+                id: 5, 
+                slug: "9-5",
+                title: "9-5", 
+                logline: "A busy, but telling, morning routine of a working class couple.", 
+                role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 6, 
+                slug: "this-is-life",
+                title: "This Is Life", 
+                logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 7, 
+                slug: "love-dive",
+                title: "Love Dive", 
+                logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4",
+                isLocked: false 
+            }
         ];
 
         const photoData = [
@@ -760,6 +823,44 @@
                 ]
             }
         ];
+
+        // --- NEW LOGIC: Password Protection & Routing ---
+
+        const PASSWORDS = {
+            "the-victorias": "editor2025", 
+            "lucky-fish": "film2025"
+        };
+
+        function tryPlayFilm(index) {
+            const item = filmData[index];
+            
+            if (item.isLocked) {
+                const attempt = prompt("This film is password protected. Please enter the password:");
+                if (attempt !== PASSWORDS[item.slug]) {
+                    alert("Incorrect password.");
+                    return;
+                }
+            }
+
+            // If not locked or password correct, play video
+            mainViewerVideo.muted = true;
+            modalVideoPlayer.src = item.video;
+            openModal(videoModal);
+            modalVideoPlayer.play();
+        }
+
+        function handleRouting() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#filmography/')) {
+                const slug = hash.replace('#filmography/', '');
+                const filmIndex = filmData.findIndex(f => f.slug === slug);
+                if (filmIndex !== -1) {
+                    updateViewer(filmIndex, true);
+                    // Optional: Smooth scroll to the filmography section if coming from a direct link
+                    document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
 
         // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
@@ -886,6 +987,9 @@
             viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
 
+            // ADD THIS LINE to point the URL to the specific film slug
+            history.replaceState(null, null, `#filmography/${item.slug}`);
+
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
                 thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
             });
@@ -909,12 +1013,7 @@
                 e.preventDefault();
                 updateViewer(index, false);
             }, { passive: false });
-            thumbDiv.addEventListener('click', () => {
-                mainViewerVideo.muted = true;
-                modalVideoPlayer.src = item.video;
-                openModal(videoModal);
-                modalVideoPlayer.play();
-            });
+            thumbDiv.addEventListener('click', () => tryPlayFilm(index));
             filmCarouselTrack.appendChild(thumbDiv);
 
             const dot = document.createElement('span');
@@ -923,12 +1022,7 @@
             filmDots.appendChild(dot);
         });
 
-        viewerPlayIcon.addEventListener('click', () => {
-            mainViewerVideo.muted = true;
-            modalVideoPlayer.src = filmData[currentFilmIndex].video;
-            openModal(videoModal);
-            modalVideoPlayer.play();
-        });
+        viewerPlayIcon.addEventListener('click', () => tryPlayFilm(currentFilmIndex));
 
         filmographyViewer.addEventListener('wheel', (e) => {
             e.preventDefault();
@@ -1016,6 +1110,9 @@
             photoSeriesList.firstChild.classList.add('active');
             displaySeries(0);
         }
+
+        window.addEventListener('hashchange', handleRouting);
+        handleRouting(); // This triggers the routing if someone lands on a direct link
     });
     </script>
 </body>
