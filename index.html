@@ -451,6 +451,71 @@
             cursor: pointer;
         }
 
+        /* Password Modal */
+        .password-modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-modal-content {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
+        }
+
+        .password-modal h3 {
+            color: #E50914;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .password-modal input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .password-modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #E50914;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .password-modal button:hover {
+            background-color: #c40812;
+        }
+
+        .password-error {
+            color: #E50914;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
         /* Scrollbar Styles */
         ::-webkit-scrollbar {
             width: 8px;
@@ -633,7 +698,7 @@
                 <p>
                     <h3 style="text-align: left;">Awards & Recognitions:</h3>
                         <ul>
-                            <li style="margin-bottom: 10px;"><b><a href="https://www.carleton.edu/fellowships/award-recipients/2023-24-carleton-funded-fellowship-recipients/#RG">$7,000 Professor Roy F. Grow Fellowship:</a></b> I was awarded this grant to film a short documentary in Japan for <a href="https://lidenfilms.jp/">Liden Films</a>, an animation studio in Tokyo.. Titled, <i>LIDENFILMS: Behind the Scenes</i>, 
+                            <li style="margin-bottom: 10px;"><b><a href="https://www.carleton.edu/fellowships/award-recipients/2023-24-carleton-funded-fellowship-recipients/#RG">$7,000 Professor Roy F. Grow Fellowship:</a></b> I was awarded this grant to film a short documentary in Japan for <a href="https://lidenfilms.jp/">Liden Films</a>, an animation studio in Tokyo. 
                             it explores the animation production pipeline of Japanese animated films ("anime") and the stories of the people working at the company.</li>
                         </ul>
                 </p>
@@ -718,18 +783,29 @@
         </div>
     </div>
 
+    <div class="password-modal">
+        <div class="password-modal-content">
+            <h3>Password Required</h3>
+            <p style="margin-bottom: 20px; color: #ccc;">This film is password protected. Please enter the password to view.</p>
+            <input type="password" id="password-input" placeholder="Enter password">
+            <div class="password-error" id="password-error">Incorrect password. Please try again.</div>
+            <button id="password-submit">Submit</button>
+            <button id="password-cancel" style="background-color: #555;">Cancel</button>
+        </div>
+    </div>
+
     <script>
 
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
-            //{ id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" },
-            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
-            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
-            //{ id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
-            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
-            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
-            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
+            { id: 1, slug: "the-victorias-editors-cut", title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst's documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4", password: "victorias2025" },
+            { id: 2, slug: "diary-of-cecelia-stone", title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O'Hara's poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
+            { id: 3, slug: "higher-living", title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she's made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
+            { id: 4, slug: "lucky-fish-editors-cut", title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel's short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4", password: "luckyfish2025" },
+            { id: 5, slug: "9-5", title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
+            { id: 6, slug: "this-is-life", title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
+            { id: 7, slug: "love-dive", title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
         ];
 
         const photoData = [
@@ -750,7 +826,7 @@
             {
                 title: "Film Noir ",
                 photos: [
-                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man's head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You're like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can't be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men's behavior or manipulate them is due to her marginalization." }
                 ]
             },
             {
@@ -760,6 +836,86 @@
                 ]
             }
         ];
+
+        // Password-protected films tracking
+        let pendingFilmId = null;
+        const passwordModal = document.querySelector('.password-modal');
+        const passwordInput = document.getElementById('password-input');
+        const passwordError = document.getElementById('password-error');
+        const passwordSubmit = document.getElementById('password-submit');
+        const passwordCancel = document.getElementById('password-cancel');
+
+        // Update URL based on film
+        function updateURL(slug) {
+            if (history.pushState) {
+                const newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?film=' + slug;
+                window.history.pushState({path: newURL}, '', newURL);
+            }
+        }
+
+        // Check URL on load
+        function checkURLForFilm() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filmSlug = urlParams.get('film');
+            if (filmSlug) {
+                const filmIndex = filmData.findIndex(f => f.slug === filmSlug);
+                if (filmIndex !== -1) {
+                    const film = filmData[filmIndex];
+                    if (film.password) {
+                        pendingFilmId = film.id;
+                        showPasswordModal();
+                    } else {
+                        updateViewer(filmIndex);
+                        document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+        }
+
+        function showPasswordModal() {
+            passwordModal.style.display = 'flex';
+            passwordInput.value = '';
+            passwordError.style.display = 'none';
+            passwordInput.focus();
+        }
+
+        function hidePasswordModal() {
+            passwordModal.style.display = 'none';
+            pendingFilmId = null;
+        }
+
+        function checkPassword(filmId, enteredPassword) {
+            const film = filmData.find(f => f.id === filmId);
+            return film && film.password === enteredPassword;
+        }
+
+        passwordSubmit.addEventListener('click', () => {
+            const enteredPassword = passwordInput.value;
+            if (checkPassword(pendingFilmId, enteredPassword)) {
+                const filmIndex = filmData.findIndex(f => f.id === pendingFilmId);
+                hidePasswordModal();
+                mainViewerVideo.muted = true;
+                modalVideoPlayer.src = filmData[filmIndex].video;
+                openModal(videoModal);
+                modalVideoPlayer.play();
+            } else {
+                passwordError.style.display = 'block';
+            }
+        });
+
+        passwordCancel.addEventListener('click', hidePasswordModal);
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                passwordSubmit.click();
+            }
+        });
+
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                hidePasswordModal();
+            }
+        });
 
         // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
@@ -886,6 +1042,8 @@
             viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
 
+            updateURL(item.slug);
+
             document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
                 thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
             });
@@ -910,10 +1068,15 @@
                 updateViewer(index, false);
             }, { passive: false });
             thumbDiv.addEventListener('click', () => {
-                mainViewerVideo.muted = true;
-                modalVideoPlayer.src = item.video;
-                openModal(videoModal);
-                modalVideoPlayer.play();
+                if (item.password) {
+                    pendingFilmId = item.id;
+                    showPasswordModal();
+                } else {
+                    mainViewerVideo.muted = true;
+                    modalVideoPlayer.src = item.video;
+                    openModal(videoModal);
+                    modalVideoPlayer.play();
+                }
             });
             filmCarouselTrack.appendChild(thumbDiv);
 
@@ -924,10 +1087,16 @@
         });
 
         viewerPlayIcon.addEventListener('click', () => {
-            mainViewerVideo.muted = true;
-            modalVideoPlayer.src = filmData[currentFilmIndex].video;
-            openModal(videoModal);
-            modalVideoPlayer.play();
+            const film = filmData[currentFilmIndex];
+            if (film.password) {
+                pendingFilmId = film.id;
+                showPasswordModal();
+            } else {
+                mainViewerVideo.muted = true;
+                modalVideoPlayer.src = film.video;
+                openModal(videoModal);
+                modalVideoPlayer.play();
+            }
         });
 
         filmographyViewer.addEventListener('wheel', (e) => {
@@ -973,6 +1142,9 @@
         }
 
         if (filmData.length > 0) updateViewer(0);
+
+        // Check URL on page load
+        checkURLForFilm();
 
         // --- PHOTOGRAPHY ---
         const photoSeriesList = document.querySelector('.photo-series-list ul');
