@@ -894,6 +894,7 @@
             if (checkPassword(pendingFilmId, enteredPassword)) {
                 const filmIndex = filmData.findIndex(f => f.id === pendingFilmId);
                 hidePasswordModal();
+                updateViewer(filmIndex, true, false);
                 mainViewerVideo.muted = true;
                 modalVideoPlayer.src = filmData[filmIndex].video;
                 openModal(videoModal);
