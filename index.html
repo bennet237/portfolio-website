@@ -795,7 +795,6 @@
     </div>
 
     <script>
-
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
@@ -845,18 +844,24 @@
         const passwordSubmit = document.getElementById('password-submit');
         const passwordCancel = document.getElementById('password-cancel');
 
-        // Update URL based on film
+        // Update URL with clean path-based slug
         function updateURL(slug) {
-            if (history.pushState) {
-                const newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?film=' + slug;
+            let basePath = window.location.pathname;
+            if (!basePath.endsWith('/')) basePath += '/';
+            const newPath = basePath.replace(/[^/]+\/?$/, slug ? slug + '/' : '');
+            const newURL = window.location.protocol + "//" + window.location.host + newPath;
+            if (newURL !== window.location.href) {
                 window.history.pushState({path: newURL}, '', newURL);
             }
         }
 
-        // Check URL on load
+        // Check current path for film slug on load or popstate
         function checkURLForFilm() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const filmSlug = urlParams.get('film');
+            let path = window.location.pathname;
+            if (path.endsWith('/')) path = path.slice(0, -1);
+            const segments = path.split('/').filter(s => s);
+            const filmSlug = segments[segments.length - 1] || null;
+
             if (filmSlug) {
                 const filmIndex = filmData.findIndex(f => f.slug === filmSlug);
                 if (filmIndex !== -1) {
@@ -867,8 +872,11 @@
                         pendingFilmId = film.id;
                         showPasswordModal();
                     }
+                    return;
                 }
             }
+            // If no valid slug, default to first film but without updating URL
+            updateViewer(0, true, false);
         }
 
         function showPasswordModal() {
@@ -1029,7 +1037,7 @@
             }
         }
 
-        function updateViewer(index, shouldScroll = true, updateURLParam = false) {
+        function updateViewer(index, shouldScroll = true, updateURLFlag = false) {
             const item = filmData[index];
             currentFilmIndex = index;
 
@@ -1041,7 +1049,7 @@
             viewerLogline.textContent = item.logline;
             viewerDescription.textContent = `Role: ${item.role}`;
 
-            if (updateURLParam) {
+            if (updateURLFlag) {
                 updateURL(item.slug);
             }
 
@@ -1142,10 +1150,11 @@
             }
         }
 
-        if (filmData.length > 0) updateViewer(0, true, false);
-
-        // Check URL on page load
+        // Initial load
         checkURLForFilm();
+
+        // Handle back/forward buttons
+        window.addEventListener('popstate', checkURLForFilm);
 
         // --- PHOTOGRAPHY ---
         const photoSeriesList = document.querySelector('.photo-series-list ul');
