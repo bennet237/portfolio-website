@@ -861,12 +861,11 @@
                 const filmIndex = filmData.findIndex(f => f.slug === filmSlug);
                 if (filmIndex !== -1) {
                     const film = filmData[filmIndex];
+                    updateViewer(filmIndex, true, false);
+                    document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
                     if (film.password) {
                         pendingFilmId = film.id;
                         showPasswordModal();
-                    } else {
-                        updateViewer(filmIndex, true, false);
-                        document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             }
@@ -894,7 +893,6 @@
             if (checkPassword(pendingFilmId, enteredPassword)) {
                 const filmIndex = filmData.findIndex(f => f.id === pendingFilmId);
                 hidePasswordModal();
-                updateViewer(filmIndex, true, false);
                 mainViewerVideo.muted = true;
                 modalVideoPlayer.src = filmData[filmIndex].video;
                 openModal(videoModal);
