@@ -1,217 +1,1021 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- [All your existing head content unchanged] -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bennet Tefu - Filmmaker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* [All your existing CSS] */
-
-        /* New: For single film view */
-        body.single-film-view .film-carousel,
-        body.single-film-view .film-dots,
-        body.single-film-view h3 {
-            display: none !important;
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        body.single-film-view .main-viewer {
-            max-width: 1200px;
-            margin: 0 auto;
-            height: 80vh;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .back-to-portfolio {
-            position: absolute;
-            top: 100px;
-            left: 40px;
-            z-index: 10;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
-            border-radius: 4px;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #141414;
             color: #fff;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #E50914;
             text-decoration: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: transparent;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        body.scrolled header {
+            background-color: rgba(20, 20, 20, 0.9);
+        }
+
+        .filmmaker-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #E50914;
+        }
+
+        nav a {
+            margin-left: 25px;
+            font-size: 1.1em;
             font-weight: bold;
         }
 
-        .back-to-portfolio:hover {
-            background: #E50914;
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 100px 40px;
+            background-color: #141414;
         }
 
+        #home {
+            padding: 0;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .section.in-view {
+            opacity: 1;
+        }
+
+        /* Home (Reel) Section */
+        #home .video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #home-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1200px;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.5);
+        }
+
+        .about-content img {
+            width: 400px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-content p {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .about-content hr {
+            width: 100%;
+            border: 1px solid #555;
+            margin: 20px 0;
+        }
+
+        /* Filmography Section */
+        .main-viewer {
+            width: 100%;
+            height: 55vh;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .main-viewer video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .viewer-info-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: linear-gradient(to right, rgba(20, 20, 20, 0.9) 70%, rgba(20, 20, 20, 0));
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .viewer-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .info-text {
+            margin-bottom: 20px;
+        }
+
+        .viewer-info h3 { font-size: 2.5em; margin-bottom: 15px; }
+        .viewer-info p { font-size: 1.1em; margin-bottom: 15px; }
+
+        .film-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .film-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #555;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .film-dot.active {
+            background-color: #E50914;
+        }
+
+        .film-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            overflow-y: hidden; /* Added to remove vertical scrollbar */
+            scroll-behavior: smooth;
+        }
+
+        .carousel-thumbnail {
+            min-width: 300px;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .carousel-thumbnail:hover { transform: scale(1.05); }
+
+        .carousel-thumbnail.selected {
+            border: 2px solid #E50914;
+        }
+
+        .carousel-thumbnail .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .carousel-thumbnail:hover .play-icon {
+            opacity: 1;
+        }
+
+        /* Photography Section */
+        .photo-series-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .photo-series-list {
+            width: 30%;
+            padding-right: 20px;
+        }
+
+        .photo-series-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .photo-series-list li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .photo-series-list li:hover {
+            background-color: #333;
+        }
+
+        .photo-series-list li.active {
+            background-color: #E50914;
+            color: #fff;
+        }
+
+        .photo-series-display {
+            width: 70%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .photo-item {
+            display: flex;
+            margin-bottom: 20px;
+            height: 300px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .photo-item:hover {
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+
+        .photo-image {
+            width: 50%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pxhoto-image:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-description {
+            width: 50%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95em;
+        }
+
+        .photo-description p {
+            text-align: left;
+            margin: 0;
+            width: 100%;
+            line-height: 1.5;
+        }
+
+        /* Contact Form */
+        .contact-form { max-width: 500px; width: 100%; }
+
+        .contact-form label { display: block; margin-bottom: 5px; }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #E50914;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #101010;
+            color: #888;
+        }
+
+        .social-links { margin-bottom: 20px; }
+
+        .social-links a { margin: 0 15px; font-size: 1.8em; color: #fff; }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content { position: relative; }
+
+        .video-modal .modal-content { width: 80%; max-width: 960px; }
+        
+        .video-modal video { width: 100%; height: 100%; }
+
+        .image-modal .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-modal img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            object-fit: contain;
+        }
+
+        .fullscreen-button {
+            position: absolute;
+            top: -45px;
+            right: 40px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .fullscreen-button:hover {
+            color: #E50914;
+        }
+
+        .close {
+            position: absolute;
+            top: -45px;
+            right: -5px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #E50914;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c40812;
+        }
+
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #E50914 #333;
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .back-to-portfolio {
-                top: 80px;
-                left: 20px;
+            /* Header */
+            header {
+                padding: 5px 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .filmmaker-name {
+                font-size: 1em;
+            }
+            nav {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 5px;
+                gap: 2px; /* Reduced to approximate 0.5 line spacing */
+            }
+            nav a {
+                font-size: 1.1em;
+            }
+            /* Home */
+            .play-button {
+                font-size: 2em;
+            }
+            /* About */
+            .about-content img {
+                width: 100%;
+                max-width: 300px;
+            }
+            /* Filmography */
+            .main-viewer {
+                height: 40vh;
+            }
+            .viewer-info-container {
+                width: 100%;
+                height: auto;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background: linear-gradient(to top, rgba(20, 20, 20, 0.9) 70%, transparent);
+                padding: 10px;
+            }
+            .viewer-info {
+                align-items: flex-start;
+            }
+            .viewer-info h3 {
+                font-size: 1.2em;
+                margin-bottom: 8px; /* Increased margin */
+            }
+            .viewer-info p {
+                font-size: 0.8em;
+                line-height: 1.1;
+                margin-bottom: 8px; /* Increased margin */
+                word-wrap: break-word;
+            }
+            .carousel-thumbnail {
+                min-width: 200px;
+                height: 120px;
+            }
+            /* Photography */
+            .photo-series-wrapper {
+                flex-direction: column;
+            }
+            .photo-series-list {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 20px;
+            }
+            .photo-series-display {
+                width: 100%;
+            }
+            .photo-item {
+                flex-direction: column;
+                height: auto;
+            }
+            .photo-image {
+                width: 100%;
+                height: 200px;
+            }
+            .photo-description {
+                width: 100%;
+                height: auto;
+                padding: 10px;
+            }
+            /* Contact */
+            .contact-form input, .contact-form textarea {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+            .contact-form button {
                 padding: 8px 16px;
                 font-size: 0.9em;
             }
-
-            body.single-film-view .main-viewer {
-                height: 60vh;
+            /* Footer */
+            .social-links a {
+                font-size: 1.5em;
+                margin: 0 10px;
+            }
+            footer p {
+                font-size: 0.8em;
+            }
+            /* Sections */
+            .section {
+                padding: 60px 20px;
+            }
+            .section h2 {
+                font-size: 2em;
+            }
+            .section h3 {
+                font-size: 1.5em;
+            }
+            .about-content p {
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- [All your existing body content unchanged] -->
+    <header>
+        <div class="filmmaker-name">Bennet Tefu | Filmmaker</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#filmography">Filmography</a>
+            <a href="#photography">Photography</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section">
+            <div class="video-container">
+                <video id="home-video" poster="https://f004.backblazeb2.com/file/tefub-films/thumbs/demo_reel.png" muted></video>
+                <div class="play-button"><i class="fas fa-play"></i></div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2>ABOUT</h2>
+            <div class="about-content">
+                <img src="https://f004.backblazeb2.com/file/tefub-films/photography/profile.JPG" alt="Bennet Tefu">
+                <p>
+                    Recent Cinema & Media Studies graduate from <a href="https://www.carleton.edu/">Carleton College</a> with pre-to-post-production experience. Recipient of a 
+                    <a href="https://www.carleton.edu/fellowships/award-recipients/2023-24-carleton-funded-fellowship-recipients/#RG">$7,000 Professor Roy F. Grow Fellowship</a> 
+                    for documentary work in Japan, and proficient in cinematography, storyboarding, directing, content writing, and editing with creative instincts for visual effects and dynamic video editing.
+                </p>
+                <hr>
+                <p>
+                    I also have a background in Computer Science, with experience in programming and web languages and computer systems which has greatly 
+                    informed my design skills and an understanding of management systems (WordPress CMS, Patron Portal), data-driven content decisions, technical knowledge and troubleshooting 
+                    skills for hardware (camera & audio equipment, computers, etc) and software (Adobe Premiere Pro, Photoshop, After Effects) systems.
+                </p>
+                <hr>
+                <p>
+                    <h3 style="text-align: left;">Awards & Recognitions:</h3>
+                        <ul>
+                            <li style="margin-bottom: 10px;"><b><a href="https://www.carleton.edu/fellowships/award-recipients/2023-24-carleton-funded-fellowship-recipients/#RG">$7,000 Professor Roy F. Grow Fellowship:</a></b> I was awarded this grant to film a short documentary in Japan for <a href="https://lidenfilms.jp/">Liden Films</a>, an animation studio in Tokyo.. Titled, <i>LIDENFILMS: Behind the Scenes</i>, 
+                            it explores the animation production pipeline of Japanese animated films ("anime") and the stories of the people working at the company.</li>
+                        </ul>
+                </p>
+                <hr>
+                <p>
+                    <h3 style="text-align: left;">SKills: </h3>
+                    <p><b>Creative Skills:</b> Directing, Editing, Cinematography, Storyboarding, Content Writing (<a href="https://lidenfilms.jp/">view blog</a>), Motion Graphics, Inventory Management. </p> 
+                    <p><b>Technical Skills:</b> Adobe (Premiere Pro, After Effects, Audition, Photoshop, Lightroom), DaVinci Resolve, Final Cut Pro, CapCut, WordPress CMS, Patron Portal, WriterDuet, Canva, Microsoft (Word, Excel, Powerpoint), Google (Docs, Sheets, Slides).</p>
+                    <p><b>Equipment:</b> Sony PXW-FX5 Mark II, Canon C100 Mark II, Sony HXR-NX100, Canon EOS DSLRs (80D & 60D) </p> 
+                    <p><b>Programming & Web Languages:</b> Python, JavaScript, HTML & CSS </p>
+                </p>
+            </div>
+        </section>
+
+        <section id="filmography" class="section">
+            <h2>FILMOGRAPHY</h2>
+            <div class="main-viewer" id="filmography-viewer">
+                <div class="viewer-info-container">
+                    <div class="viewer-info">
+                        <div class="info-text">
+                            <h3 id="viewer-title"></h3>
+                            <p id="viewer-logline"></p>
+                            <p id="viewer-description"></p>
+                        </div>
+                        <i class="fas fa-play play-icon" id="viewer-play-icon"></i>
+                    </div>
+                </div>
+                <video id="main-viewer-video" loop playsinline muted></video>
+                <div class="film-dots" id="film-dots"></div>
+            </div>
+            <h3>Films</h3>
+            <div class="film-carousel">
+                <div class="carousel-track" id="film-carousel-track"></div>
+            </div>
+        </section>
+
+        <section id="photography" class="section">
+            <h2>PHOTOGRAPHY</h2>
+            <div class="photo-series-wrapper">
+                <div class="photo-series-list">
+                    <ul></ul>
+                </div>
+                <div class="photo-series-display"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>CONTACT</h2>
+            <form class="contact-form" action="https://formspree.io/f/myzpeazz" method="POST">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/bennet-tefu-319484204/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:tefubennet23@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.carleton.edu/search/?q=bennet&as_sitesearch=www.carleton.edu%2Fadmissions" target="_blank"><i class="fa-solid fa-blog"></i></a>
+        </div>
+        <p>© 2025 Bennet Tefu. All rights reserved.</p>
+    </footer>
+
+    <div class="modal video-modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <video id="modalVideoPlayer" controls style="width:100%; height:auto;"></video>
+        </div>
+    </div>
+
+    <div class="modal image-modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <span class="fullscreen-button"><i class="fas fa-expand"></i></span>
+            <img src="" alt="Enlarged view" />
+        </div>
+    </div>
 
     <script>
+
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATA ---
         const filmData = [
-            { id: 1, title: "The Victorias - Editor's Cut", slug: "the-victorias", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4", passwordProtected: true },
-            { id: 2, title: "Diary of Cecelia Stone", slug: "diary-of-cecelia-stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4", passwordProtected: false },
-            { id: 3, title: "Higher Living", slug: "higher-living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4", passwordProtected: false },
-            { id: 4, title: "Lucky Fish - Editor's Cut", slug: "lucky-fish", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4", passwordProtected: true },
-            { id: 5, title: "9-5", slug: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4", passwordProtected: false },
-            { id: 6, title: "This Is Life", slug: "this-is-life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4", passwordProtected: false },
-            { id: 7, title: "Love Dive", slug: "love-dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4", passwordProtected: false }
+            //{ id: 1, title: "The Victorias - Editor's Cut", logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916. Based on Ethan Fuirst’s documentary, The Victorias, for The New Yorker magazine.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4" },
+            { id: 2, title: "Diary of Cecelia Stone", logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death. Inspired by Frank O’Hara’s poem, Having A Coke With You.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4" },
+            { id: 3, title: "Higher Living", logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens, dragging her reluctant roommate along for a long hike. In their ensuing quest to film the supernatural, they rekindle their old friendship.", role: "Cinematographer, Storyboarder, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4" },
+            //{ id: 4, title: "Lucky Fish - Editor's Cut", logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine. Based on Emily Jampel’s short film, Lucky Fish.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4" },
+            { id: 5, title: "9-5", logline: "A busy, but telling, morning routine of a working class couple.", role: "Writer, Storyboarder, Director, Cinematographer, Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4" },
+            { id: 6, title: "This Is Life", logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life. Inspired by the visual artist, Ugur Gallenkus.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4" },
+            { id: 7, title: "Love Dive", logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", role: "Editor", thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4" }
         ];
 
-        const REQUIRED_PASSWORD = "tefu2025"; // Change this!
+        const photoData = [
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.JPG", desc: "A wholesome moment between an alum and a student worker during check-in." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.JPG", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_3996.JPG", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4453.JPG", desc: "Excited to be back on campus." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5092.JPG", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4291.JPG", desc: "An alum checking out some useful items for the weekend." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5520.JPG", desc: "Picnic at the Bald Spot." }
+        ];
 
-        function checkPassword() {
-            if (sessionStorage.getItem('filmAccessGranted') === 'true') return true;
-            const input = prompt("This film is password protected. Please enter the password:");
-            if (input === REQUIRED_PASSWORD) {
-                sessionStorage.setItem('filmAccessGranted', 'true');
-                return true;
-            } else if (input !== null) {
-                alert("Incorrect password.");
-                return false;
+        const photoSeries = [
+            {
+                title: "Carleton College Reunion Weekend 2025",
+                photos: photoData
+            },
+            {
+                title: "Film Noir ",
+                photos: [
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
+                ]
+            },
+            {
+                title: "Headshots",
+                photos: [
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "" }
+                ]
             }
-            return false;
-        }
+        ];
 
-        // --- URL HANDLING FOR DIRECT FILM ACCESS ---
-        const path = window.location.pathname;
-        const singleFilmMatch = path.match(/^\/film\/([^\/]+)$/);
-        let initialIndex = 0;
+        // --- GENERAL SETUP ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-        if (singleFilmMatch) {
-            const slug = singleFilmMatch[1];
-            const film = filmData.find(f => f.slug === slug);
-            if (film) {
-                initialIndex = filmData.indexOf(film);
-                document.body.classList.add('single-film-view');
+        window.addEventListener('scroll', () => {
+            document.body.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-                // Add back button
-                const backBtn = document.createElement('a');
-                backBtn.href = '/';
-                backBtn.className = 'back-to-portfolio';
-                backBtn.textContent = '← Back to Portfolio';
-                document.querySelector('#filmography').prepend(backBtn);
+        // --- MODAL HANDLING ---
+        const videoModal = document.querySelector('.video-modal');
+        const imageModal = document.querySelector('.image-modal');
+        const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+        const imageEl = imageModal.querySelector('img');
+        const fullscreenButton = imageModal.querySelector('.fullscreen-button');
+
+        function openModal(modal) { modal.style.display = 'flex'; }
+
+        document.querySelectorAll('.modal .close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal');
+                modal.style.display = 'none';
+                if (modal.classList.contains('video-modal')) {
+                    modalVideoPlayer.pause();
+                    modalVideoPlayer.src = '';
+                    const mainViewerVideo = document.getElementById('main-viewer-video');
+                    mainViewerVideo.muted = false;
+                }
+                if (modal.classList.contains('image-modal')) {
+                    imageEl.src = '';
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    if (modal.classList.contains('video-modal')) {
+                        modalVideoPlayer.pause();
+                        modalVideoPlayer.src = '';
+                        const mainViewerVideo = document.getElementById('main-viewer-video');
+                        mainViewerVideo.muted = false;
+                    }
+                    if (modal.classList.contains('image-modal')) {
+                        imageEl.src = '';
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
+            });
+        });
+
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                imageModal.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
             } else {
-                // Invalid slug → redirect to main portfolio
-                window.location.href = '/#filmography';
+                document.exitFullscreen();
             }
-        }
+        });
 
-        // --- FILMOGRAPHY SETUP ---
+        // --- HOME REEL ---
+        const homeVideo = document.getElementById('home-video');
+        homeVideo.src = "https://f004.backblazeb2.com/file/tefub-films/films/demo_reel.mp4";
+
+        const playButton = document.querySelector('#home .play-button');
+        playButton.addEventListener('click', () => {
+            modalVideoPlayer.src = homeVideo.src;
+            openModal(videoModal);
+            modalVideoPlayer.play();
+        });
+
+        // --- FILMOGRAPHY ---
         const mainViewerVideo = document.getElementById('main-viewer-video');
         const viewerTitle = document.getElementById('viewer-title');
         const viewerLogline = document.getElementById('viewer-logline');
         const viewerDescription = document.getElementById('viewer-description');
         const viewerPlayIcon = document.getElementById('viewer-play-icon');
         const filmCarouselTrack = document.getElementById('film-carousel-track');
+        const filmographyViewer = document.getElementById('filmography-viewer');
         const filmDots = document.getElementById('film-dots');
-        const modalVideoPlayer = document.getElementById('modalVideoPlayer');
-        const videoModal = document.querySelector('.video-modal');
 
-        let currentFilmIndex = initialIndex;
+        let currentFilmIndex = 0;
+
+        function scrollToThumbnail(index) {
+            const thumbnail = document.querySelector(`[data-index="${index}"]`);
+            if (thumbnail) {
+                const trackRect = filmCarouselTrack.getBoundingClientRect();
+                const thumbRect = thumbnail.getBoundingClientRect();
+                const thumbnailLeft = thumbRect.left - trackRect.left + filmCarouselTrack.scrollLeft;
+                const thumbnailRight = thumbnailLeft + thumbRect.width;
+                const trackWidth = trackRect.width;
+                
+                if (thumbnailLeft < filmCarouselTrack.scrollLeft || thumbnailRight > filmCarouselTrack.scrollLeft + trackWidth) {
+                    filmCarouselTrack.scrollTo({
+                        left: thumbnailLeft - (trackWidth - thumbRect.width) / 2,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
 
         function updateViewer(index, shouldScroll = true) {
             const item = filmData[index];
             currentFilmIndex = index;
 
-            if (item.passwordProtected && !sessionStorage.getItem('filmAccessGranted')) {
-                mainViewerVideo.poster = item.thumb;
-                mainViewerVideo.src = "";
-                mainViewerVideo.load();
-                viewerTitle.textContent = item.title;
-                viewerLogline.textContent = item.logline;
-                viewerDescription.textContent = "This film is password protected.";
-            } else {
-                mainViewerVideo.poster = item.thumb;
-                mainViewerVideo.src = item.video;
-                mainViewerVideo.load();
-                viewerTitle.textContent = item.title;
-                viewerLogline.textContent = item.logline;
-                viewerDescription.textContent = `Role: ${item.role}`;
-            }
+            mainViewerVideo.poster = item.thumb;
+            mainViewerVideo.src = item.video;
+            mainViewerVideo.load();
 
-            // In single view, no need for selected states
-            if (!document.body.classList.contains('single-film-view')) {
-                document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
-                    thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
-                });
-                document.querySelectorAll('.film-dot').forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-                if (shouldScroll) scrollToThumbnail(index);
-            }
-        }
+            viewerTitle.textContent = item.title;
+            viewerLogline.textContent = item.logline;
+            viewerDescription.textContent = `Role: ${item.role}`;
 
-        function scrollToThumbnail(index) {
-            // Only used in full carousel view
-        }
-
-        // Build thumbnails only in full portfolio view
-        if (!document.body.classList.contains('single-film-view')) {
-            filmData.forEach((item, index) => {
-                const thumbDiv = document.createElement('div');
-                thumbDiv.className = 'carousel-thumbnail';
-                thumbDiv.style.backgroundImage = `url(${item.thumb})`;
-                thumbDiv.dataset.index = index;
-                thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
-
-                const previewHandler = () => {
-                    if (item.passwordProtected && !checkPassword()) {
-                        updateViewer(index);
-                        return;
-                    }
-                    updateViewer(index, false);
-                };
-                thumbDiv.addEventListener('mouseenter', previewHandler);
-                thumbDiv.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    previewHandler();
-                }, { passive: false });
-
-                thumbDiv.addEventListener('click', () => {
-                    if (item.passwordProtected && !checkPassword()) return;
-                    mainViewerVideo.muted = true;
-                    modalVideoPlayer.src = item.video;
-                    videoModal.style.display = 'flex';
-                    modalVideoPlayer.play();
-                });
-
-                filmCarouselTrack.appendChild(thumbDiv);
-
-                const dot = document.createElement('span');
-                dot.className = 'film-dot';
-                dot.addEventListener('click', () => {
-                    if (item.passwordProtected && !checkPassword()) {
-                        updateViewer(index);
-                        return;
-                    }
-                    updateViewer(index);
-                });
-                filmDots.appendChild(dot);
+            document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
+                thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
             });
+            document.querySelectorAll('.film-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            if (shouldScroll) {
+                scrollToThumbnail(index);
+            }
         }
+
+        filmData.forEach((item, index) => {
+            const thumbDiv = document.createElement('div');
+            thumbDiv.className = 'carousel-thumbnail';
+            thumbDiv.style.backgroundImage = `url(${item.thumb})`;
+            thumbDiv.dataset.index = index;
+            thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index, false));
+            thumbDiv.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                updateViewer(index, false);
+            }, { passive: false });
+            thumbDiv.addEventListener('click', () => {
+                mainViewerVideo.muted = true;
+                modalVideoPlayer.src = item.video;
+                openModal(videoModal);
+                modalVideoPlayer.play();
+            });
+            filmCarouselTrack.appendChild(thumbDiv);
+
+            const dot = document.createElement('span');
+            dot.className = 'film-dot';
+            dot.addEventListener('click', () => updateViewer(index));
+            filmDots.appendChild(dot);
+        });
 
         viewerPlayIcon.addEventListener('click', () => {
-            const item = filmData[currentFilmIndex];
-            if (item.passwordProtected && !checkPassword()) return;
             mainViewerVideo.muted = true;
-            modalVideoPlayer.src = item.video;
-            videoModal.style.display = 'flex';
+            modalVideoPlayer.src = filmData[currentFilmIndex].video;
+            openModal(videoModal);
             modalVideoPlayer.play();
         });
 
-        // Initial load
-        updateViewer(initialIndex);
+        filmographyViewer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            let newIndex = currentFilmIndex;
+            if (e.deltaY < 0) {
+                newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+            } else {
+                newIndex = (currentFilmIndex + 1) % filmData.length;
+            }
+            updateViewer(newIndex);
+        }, { passive: false });
 
-        // [Rest of your script (home reel, photography, modals, etc.) remains unchanged]
-        // ... (all the code from previous version for observer, modals, home video, photography, etc.)
+        filmCarouselTrack.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            filmCarouselTrack.scrollLeft += e.deltaY;
+        }, { passive: false });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        filmographyViewer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        filmographyViewer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    const nextIndex = (currentFilmIndex + 1) % filmData.length;
+                    updateViewer(nextIndex);
+                } else {
+                    const prevIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+                    updateViewer(prevIndex);
+                }
+            }
+        }
+
+        if (filmData.length > 0) updateViewer(0);
+
+        // --- PHOTOGRAPHY ---
+        const photoSeriesList = document.querySelector('.photo-series-list ul');
+        const photoSeriesDisplay = document.querySelector('.photo-series-display');
+
+        photoSeries.forEach((series, index) => {
+            const li = document.createElement('li');
+            li.textContent = series.title;
+            li.dataset.series = index;
+            li.addEventListener('click', () => {
+                document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
+                li.classList.add('active');
+                displaySeries(index);
+            });
+            photoSeriesList.appendChild(li);
+        });
+
+        function displaySeries(index) {
+            photoSeriesDisplay.innerHTML = '';
+            const series = photoSeries[index];
+            series.photos.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'photo-item';
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'photo-image';
+                imageDiv.style.backgroundImage = `url(${photo.src})`;
+                imageDiv.addEventListener('click', () => {
+                    imageEl.src = photo.src;
+                    openModal(imageModal);
+                });
+                const descDiv = document.createElement('div');
+                descDiv.className = 'photo-description';
+                descDiv.innerHTML = `<p>${photo.desc}</p>`;
+                item.appendChild(imageDiv);
+                item.appendChild(descDiv);
+                photoSeriesDisplay.appendChild(item);
+            });
+        }
+
+        if (photoSeries.length > 0) {
+            photoSeriesList.firstChild.classList.add('active');
+            displaySeries(0);
+        }
     });
     </script>
 </body>
