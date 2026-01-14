@@ -718,159 +718,427 @@
         </div>
     </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- DATA ---
-    const filmData = [
-        { 
-            id: 1, 
-            slug: "the-victorias",
-            title: "The Victorias - Editor's Cut", 
-            logline: "Alexia Anthony reflects on her role as a Sephardic immigrant in 1916.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4",
-            isLocked: true 
-        },
-        { 
-            id: 2, 
-            slug: "diary-of-cecelia-stone",
-            title: "Diary of Cecelia Stone", 
-            logline: "Cecelia recalls memories of her and Ethan as she mourns his death.", 
-            role: "Writer, Director, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4",
-            isLocked: false 
-        },
-        { 
-            id: 3, 
-            slug: "higher-living",
-            title: "Higher Living", 
-            logline: "An alien fanatic believes she’s made contact after interfering with a radio tower.", 
-            role: "Cinematographer, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4",
-            isLocked: false 
-        },
-        { 
-            id: 4, 
-            slug: "lucky-fish",
-            title: "Lucky Fish - Editor's Cut", 
-            logline: "A brief restroom conversation turns into a budding romance.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4",
-            isLocked: true 
-        },
-        { 
-            id: 5, 
-            slug: "9-5",
-            title: "9-5", 
-            logline: "A telling morning routine of a working class couple.", 
-            role: "Director, Cinematographer, Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4",
-            isLocked: false 
-        },
-        { 
-            id: 6, 
-            slug: "this-is-life",
-            title: "This Is Life", 
-            logline: "A compilation revealing the dichotomy that spans every area of life.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4",
-            isLocked: false 
-        },
-        { 
-            id: 7, 
-            slug: "love-dive",
-            title: "Love Dive", 
-            logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", 
-            role: "Editor", 
-            thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", 
-            video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4",
-            isLocked: false 
-        }
-    ];
+    <script>
 
-    const photoSeries = [
-        {
-            title: "Carleton College Reunion Weekend 2025",
-            slug: "reunion-2025",
-            photos: [
-                { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.JPG", desc: "A wholesome moment between an alum and a student worker." },
-                { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.JPG", desc: "A family gathering for a quick selfie." }
-            ]
-        },
-        {
-            title: "Film Noir",
-            slug: "film-noir",
-            photos: [
-                { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo references the characters of Jeff Bailey and Kathie Moffat..." }
-            ]
-        },
-        {
-            title: "Headshots",
-            slug: "headshots",
-            photos: [
-                { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "Professional Portrait" }
-            ]
-        }
-    ];
-
-    const PASSWORDS = {
-        "the-victorias": "editor2025", 
-        "lucky-fish": "film2025"
-    };
-
-    // --- ROUTING ENGINE ---
-    function handleRouting() {
-        const hash = window.location.hash;
-
-        // 1. Film Deep Linking (#filmography/slug)
-        if (hash.startsWith('#filmography/')) {
-            const slug = hash.replace('#filmography/', '');
-            const filmIndex = filmData.findIndex(f => f.slug === slug);
-            if (filmIndex !== -1) {
-                updateViewer(filmIndex); // Use your existing updateViewer function
-                document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DATA ---
+        const filmData = [
+            { 
+                id: 1, 
+                slug: "the-victorias",
+                title: "The Victorias - Editor's Cut", 
+                logline: "Alexia Anthony, a former Tenement Museum actor, reflects on the impact of her role as a fourteen-year-old Sephardic immigrant in 1916.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/the_victorias.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/The_Victorias.mp4",
+                isLocked: true 
+            },
+            { 
+                id: 2, 
+                slug: "diary-of-cecelia-stone",
+                title: "Diary of Cecelia Stone", 
+                logline: "Cecelia recalls memories of her and Ethan, her lover, as she mourns his death.", 
+                role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/diary_of_cecelia_stone.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Diary_of_Cecelia_Stone.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 3, 
+                slug: "higher-living",
+                title: "Higher Living", 
+                logline: "After interfering with a radio tower, an alien fanatic believes she’s made contact with aliens.", 
+                role: "Cinematographer, Storyboarder, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/higher_living.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Higher_Living.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 4, 
+                slug: "lucky-fish",
+                title: "Lucky Fish - Editor's Cut", 
+                logline: "What starts off as a brief restroom conversation quickly turns into a budding romance between Maggie and Celine.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/lucky_fish.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Lucky_Fish.mp4",
+                isLocked: true 
+            },
+            { 
+                id: 5, 
+                slug: "9-5",
+                title: "9-5", 
+                logline: "A busy, but telling, morning routine of a working class couple.", 
+                role: "Writer, Storyboarder, Director, Cinematographer, Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/9-5.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/9-5.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 6, 
+                slug: "this-is-life",
+                title: "This Is Life", 
+                logline: "A compilation of clips from the internet reveal the dichotomy that spans every area of life.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/this_is_life.png", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/This_is_Life.mp4",
+                isLocked: false 
+            },
+            { 
+                id: 7, 
+                slug: "love-dive",
+                title: "Love Dive", 
+                logline: "Ive's Love Dive dance cover by the Krush Dance Crew.", 
+                role: "Editor", 
+                thumb: "https://f004.backblazeb2.com/file/tefub-films/thumbs/love_dive.jpg", 
+                video: "https://f004.backblazeb2.com/file/tefub-films/films/Love_Dive.mp4",
+                isLocked: false 
             }
-        } 
-        // 2. Photography Deep Linking (#photography/slug)
-        else if (hash.startsWith('#photography/')) {
-            const slug = hash.replace('#photography/', '');
-            const seriesIndex = photoSeries.findIndex(s => s.slug === slug);
-            if (seriesIndex !== -1) {
-                renderPhotoSeries(seriesIndex); // Trigger the gallery update
-                document.getElementById('photography').scrollIntoView({ behavior: 'smooth' });
+        ];
+
+        const photoData = [
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4221.JPG", desc: "A wholesome moment between an alum and a student worker during check-in." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5560.JPG", desc: "A family gathering for a quick selfie at the end of their mini golf game on a Carleton-themed mini golf course at the Bald Spot." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_3996.JPG", desc: "A candid moment with student workers unloading items for the Class of 1960 lounge." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4453.JPG", desc: "Excited to be back on campus." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5092.JPG", desc: "Younger classes of Carls listening intently to some KRLX stories from an older Carl." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_4291.JPG", desc: "An alum checking out some useful items for the weekend." },
+            { src: "https://f004.backblazeb2.com/file/tefub-films/photography/reunion/IMG_5520.JPG", desc: "Picnic at the Bald Spot." }
+        ];
+
+        const photoSeries = [
+            {
+                title: "Carleton College Reunion Weekend 2025",
+                photos: photoData
+            },
+            {
+                title: "Film Noir ",
+                photos: [
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
+                ]
+            },
+            {
+                title: "Headshots",
+                photos: [
+                    { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "" }
+                ]
             }
+        ];
+
+        // --- NEW LOGIC: Password Protection & Routing ---
+
+        const PASSWORDS = {
+            "the-victorias": "editor2025", 
+            "lucky-fish": "film2025"
+        };
+
+        function tryPlayFilm(index) {
+            const item = filmData[index];
+            
+            if (item.isLocked) {
+                const attempt = prompt("This film is password protected. Please enter the password:");
+                if (attempt !== PASSWORDS[item.slug]) {
+                    alert("Incorrect password.");
+                    return;
+                }
+            }
+
+            // If not locked or password correct, play video
+            mainViewerVideo.muted = true;
+            modalVideoPlayer.src = item.video;
+            openModal(videoModal);
+            modalVideoPlayer.play();
         }
-    }
 
-    // Listen for URL changes
-    window.addEventListener('hashchange', handleRouting);
-
-    // --- UPDATE UI ON CLICK ---
-    // When rendering your film thumbnails, add this:
-    // thumbnail.onclick = () => { window.location.hash = `#filmography/${film.slug}`; };
-
-    // When rendering your photography list, add this:
-    // listItem.onclick = () => { window.location.hash = `#photography/${series.slug}`; };
-
-    // Run once on load to catch initial URL
-    handleRouting();
-});
-
-// Helper to open film (include your password logic here)
-function tryPlayFilm(slug) {
-    const item = filmData.find(f => f.slug === slug);
-    if (item.isLocked) {
-        const attempt = prompt("Password protected:");
-        if (attempt !== PASSWORDS[slug]) return alert("Incorrect");
-    }
-    // Open modal logic...
+        function handleRouting() {
+            const hash = window.location.hash;
+            // Only proceed if the hash explicitly points to a filmography path
+            if (hash.startsWith('#filmography/')) {
+                const slug = hash.replace('#filmography/', '');
+                const filmIndex = filmData.findIndex(f => f.slug === slug);
+                if (filmIndex !== -1) {
+                    updateViewer(filmIndex, true);
+                    // Smooth scroll to the filmography section
+                    document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
 }
-</script>
+
+        // --- GENERAL SETUP ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section').forEach(section => observer.observe(section));
+
+        window.addEventListener('scroll', () => {
+            document.body.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // --- MODAL HANDLING ---
+        const videoModal = document.querySelector('.video-modal');
+        const imageModal = document.querySelector('.image-modal');
+        const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+        const imageEl = imageModal.querySelector('img');
+        const fullscreenButton = imageModal.querySelector('.fullscreen-button');
+
+        function openModal(modal) { modal.style.display = 'flex'; }
+
+        document.querySelectorAll('.modal .close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const modal = e.target.closest('.modal');
+                modal.style.display = 'none';
+                if (modal.classList.contains('video-modal')) {
+                    modalVideoPlayer.pause();
+                    modalVideoPlayer.src = '';
+                    const mainViewerVideo = document.getElementById('main-viewer-video');
+                    mainViewerVideo.muted = false;
+                }
+                if (modal.classList.contains('image-modal')) {
+                    imageEl.src = '';
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    if (modal.classList.contains('video-modal')) {
+                        modalVideoPlayer.pause();
+                        modalVideoPlayer.src = '';
+                        const mainViewerVideo = document.getElementById('main-viewer-video');
+                        mainViewerVideo.muted = false;
+                    }
+                    if (modal.classList.contains('image-modal')) {
+                        imageEl.src = '';
+                        if (document.fullscreenElement) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
+            });
+        });
+
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                imageModal.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // --- HOME REEL ---
+        const homeVideo = document.getElementById('home-video');
+        homeVideo.src = "https://f004.backblazeb2.com/file/tefub-films/films/demo_reel.mp4";
+
+        const playButton = document.querySelector('#home .play-button');
+        playButton.addEventListener('click', () => {
+            modalVideoPlayer.src = homeVideo.src;
+            openModal(videoModal);
+            modalVideoPlayer.play();
+        });
+
+        // --- FILMOGRAPHY ---
+        const mainViewerVideo = document.getElementById('main-viewer-video');
+        const viewerTitle = document.getElementById('viewer-title');
+        const viewerLogline = document.getElementById('viewer-logline');
+        const viewerDescription = document.getElementById('viewer-description');
+        const viewerPlayIcon = document.getElementById('viewer-play-icon');
+        const filmCarouselTrack = document.getElementById('film-carousel-track');
+        const filmographyViewer = document.getElementById('filmography-viewer');
+        const filmDots = document.getElementById('film-dots');
+
+        let currentFilmIndex = 0;
+
+        function scrollToThumbnail(index) {
+            const thumbnail = document.querySelector(`[data-index="${index}"]`);
+            if (thumbnail) {
+                const trackRect = filmCarouselTrack.getBoundingClientRect();
+                const thumbRect = thumbnail.getBoundingClientRect();
+                const thumbnailLeft = thumbRect.left - trackRect.left + filmCarouselTrack.scrollLeft;
+                const thumbnailRight = thumbnailLeft + thumbRect.width;
+                const trackWidth = trackRect.width;
+                
+                if (thumbnailLeft < filmCarouselTrack.scrollLeft || thumbnailRight > filmCarouselTrack.scrollLeft + trackWidth) {
+                    filmCarouselTrack.scrollTo({
+                        left: thumbnailLeft - (trackWidth - thumbRect.width) / 2,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+
+        function updateViewer(index, shouldScroll = true) {
+            const item = filmData[index];
+            currentFilmIndex = index;
+
+            mainViewerVideo.poster = item.thumb;
+            mainViewerVideo.src = item.video;
+            mainViewerVideo.load();
+
+            viewerTitle.textContent = item.title;
+            viewerLogline.textContent = item.logline;
+            viewerDescription.textContent = `Role: ${item.role}`;
+
+            // ADD THIS LINE: It updates the URL only when a user interacts with the filmography
+            history.replaceState(null, null, `#filmography/${item.slug}`);
+
+            document.querySelectorAll('.carousel-thumbnail').forEach(thumb => {
+                thumb.classList.toggle('selected', parseInt(thumb.dataset.index) === index);
+            });
+            document.querySelectorAll('.film-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            if (shouldScroll) {
+                scrollToThumbnail(index);
+            }
+        }
+
+        filmData.forEach((item, index) => {
+            const thumbDiv = document.createElement('div');
+            thumbDiv.className = 'carousel-thumbnail';
+            thumbDiv.style.backgroundImage = `url(${item.thumb})`;
+            thumbDiv.dataset.index = index;
+            thumbDiv.innerHTML = `<i class="fas fa-play play-icon"></i>`;
+            thumbDiv.addEventListener('mouseenter', () => updateViewer(index, false));
+            thumbDiv.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                updateViewer(index, false);
+            }, { passive: false });
+            thumbDiv.addEventListener('click', () => tryPlayFilm(index));
+            filmCarouselTrack.appendChild(thumbDiv);
+
+            const dot = document.createElement('span');
+            dot.className = 'film-dot';
+            dot.addEventListener('click', () => updateViewer(index));
+            filmDots.appendChild(dot);
+        });
+
+        viewerPlayIcon.addEventListener('click', () => tryPlayFilm(currentFilmIndex));
+
+        filmographyViewer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            let newIndex = currentFilmIndex;
+            if (e.deltaY < 0) {
+                newIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+            } else {
+                newIndex = (currentFilmIndex + 1) % filmData.length;
+            }
+            updateViewer(newIndex);
+        }, { passive: false });
+
+        filmCarouselTrack.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            filmCarouselTrack.scrollLeft += e.deltaY;
+        }, { passive: false });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        filmographyViewer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        filmographyViewer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    const nextIndex = (currentFilmIndex + 1) % filmData.length;
+                    updateViewer(nextIndex);
+                } else {
+                    const prevIndex = (currentFilmIndex - 1 + filmData.length) % filmData.length;
+                    updateViewer(prevIndex);
+                }
+            }
+        }
+
+        // --- INITIALIZATION ---
+
+        // 1. Set the initial state of the filmography viewer WITHOUT updating the URL
+        if (filmData.length > 0) {
+            const item = filmData[0];
+            currentFilmIndex = 0;
+            mainViewerVideo.poster = item.thumb;
+            mainViewerVideo.src = item.video;
+            mainViewerVideo.load();
+            viewerTitle.textContent = item.title;
+            viewerLogline.textContent = item.logline;
+            viewerDescription.textContent = `Role: ${item.role}`;
+            
+            // Highlight the first dot/thumbnail visually
+            document.querySelectorAll('.carousel-thumbnail')[0]?.classList.add('selected');
+            document.querySelectorAll('.film-dot')[0]?.classList.add('active');
+        }
+
+        // 2. Listen for back/forward browser buttons
+        window.addEventListener('hashchange', handleRouting);
+
+        // 3. Only run routing on load if a specific film path is in the URL
+        if (window.location.hash.startsWith('#filmography/')) {
+            handleRouting();
+        }
+
+        // --- PHOTOGRAPHY ---
+        const photoSeriesList = document.querySelector('.photo-series-list ul');
+        const photoSeriesDisplay = document.querySelector('.photo-series-display');
+
+        photoSeries.forEach((series, index) => {
+            const li = document.createElement('li');
+            li.textContent = series.title;
+            li.dataset.series = index;
+            li.addEventListener('click', () => {
+                document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
+                li.classList.add('active');
+                displaySeries(index);
+            });
+            photoSeriesList.appendChild(li);
+        });
+
+        function displaySeries(index) {
+            photoSeriesDisplay.innerHTML = '';
+            const series = photoSeries[index];
+            series.photos.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'photo-item';
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'photo-image';
+                imageDiv.style.backgroundImage = `url(${photo.src})`;
+                imageDiv.addEventListener('click', () => {
+                    imageEl.src = photo.src;
+                    openModal(imageModal);
+                });
+                const descDiv = document.createElement('div');
+                descDiv.className = 'photo-description';
+                descDiv.innerHTML = `<p>${photo.desc}</p>`;
+                item.appendChild(imageDiv);
+                item.appendChild(descDiv);
+                photoSeriesDisplay.appendChild(item);
+            });
+        }
+
+        if (photoSeries.length > 0) {
+            photoSeriesList.firstChild.classList.add('active');
+            displaySeries(0);
+        }
+
+        window.addEventListener('hashchange', handleRouting);
+        handleRouting(); // This triggers the routing if someone lands on a direct link
+    });
+    </script>
 </body>
 </html>
