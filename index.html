@@ -852,10 +852,10 @@
             modalVideoPlayer.play();
         }
 
-       function handleRouting() {
+        function handleRouting() {
             const hash = window.location.hash;
 
-            // --- Filmography Routing ---
+            // 1. Handle Filmography Paths
             if (hash.startsWith('#filmography/')) {
                 const slug = hash.replace('#filmography/', '');
                 const filmIndex = filmData.findIndex(f => f.slug === slug);
@@ -865,19 +865,18 @@
                 }
             } 
             
-            // --- Photography Routing (New Logic) ---
+            // 2. Handle Photography Paths
             else if (hash.startsWith('#photography/')) {
                 const slug = hash.replace('#photography/', '');
                 const seriesIndex = photoSeries.findIndex(s => s.slug === slug);
-                
                 if (seriesIndex !== -1) {
-                    // Update the sidebar list UI
+                    // Update the List UI
                     document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
                     const activeLi = document.querySelector(`.photo-series-list li[data-slug="${slug}"]`);
                     if (activeLi) activeLi.classList.add('active');
                     
-                    // Display the photos without pushing a new history state
-                    displaySeries(seriesIndex, false); 
+                    // Display photos (the 'false' prevents history.replaceState from looping)
+                    displaySeries(seriesIndex, false);
                     document.getElementById('photography').scrollIntoView({ behavior: 'smooth' });
                 }
             }
@@ -1088,29 +1087,41 @@
 
         // --- INITIALIZATION ---
 
-        // 1. Set the initial state of the filmography viewer WITHOUT updating the URL
+        // 1. Setup Photography List (Do this once)
+        photoSeries.forEach((series, index) => {
+            const li = document.createElement('li');
+            li.textContent = series.title;
+            li.dataset.series = index;
+            li.dataset.slug = series.slug; 
+            li.addEventListener('click', () => {
+                // This triggers the URL change, which then triggers handleRouting
+                window.location.hash = `#photography/${series.slug}`;
+            });
+            photoSeriesList.appendChild(li);
+        });
+
+        // 2. Set Default State (Visual only, no URL change)
+        if (photoSeries.length > 0) {
+            photoSeriesList.firstChild.classList.add('active');
+            displaySeries(0, false); // 'false' ensures the URL stays as "tefubennet.com"
+        }
+
+        // 3. Set Filmography Default
         if (filmData.length > 0) {
-            const item = filmData[0];
-            currentFilmIndex = 0;
-            mainViewerVideo.poster = item.thumb;
-            mainViewerVideo.src = item.video;
-            mainViewerVideo.load();
-            viewerTitle.textContent = item.title;
-            viewerLogline.textContent = item.logline;
-            viewerDescription.textContent = `Role: ${item.role}`;
-            
-            // Highlight the first dot/thumbnail visually
-            document.querySelectorAll('.carousel-thumbnail')[0]?.classList.add('selected');
-            document.querySelectorAll('.film-dot')[0]?.classList.add('active');
+            updateViewer(0, false); // Assuming your updateViewer has a similar flag
         }
 
-        // 2. Listen for back/forward browser buttons
-        window.addEventListener('hashchange', handleRouting);
-
-        // 3. Only run routing on load if a specific film path is in the URL
-        if (window.location.hash.startsWith('#filmography/')) {
+        // 4. Handle Deep Links
+        // This checks if the user actually typed a specific link like tefubennet.com/#photography/headshots
+        if (window.location.hash) {
             handleRouting();
+        } else {
+            // If no hash exists, ensure we are at the top (Home)
+            window.scrollTo(0, 0);
         }
+
+        // 5. Listen for future hash changes
+        window.addEventListener('hashchange', handleRouting);
 
         // --- Updated Photography Display Logic ---
         const photoSeriesList = document.querySelector('.photo-series-list ul');
