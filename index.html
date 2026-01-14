@@ -852,7 +852,7 @@
             modalVideoPlayer.play();
         }
 
-        function handleRouting() {
+       function handleRouting() {
             const hash = window.location.hash;
 
             // --- Filmography Routing ---
@@ -865,22 +865,23 @@
                 }
             } 
             
-            // --- Photography Routing ---
+            // --- Photography Routing (New Logic) ---
             else if (hash.startsWith('#photography/')) {
                 const slug = hash.replace('#photography/', '');
                 const seriesIndex = photoSeries.findIndex(s => s.slug === slug);
+                
                 if (seriesIndex !== -1) {
-                    // Update UI to show the correct series
+                    // Update the sidebar list UI
                     document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
                     const activeLi = document.querySelector(`.photo-series-list li[data-slug="${slug}"]`);
                     if (activeLi) activeLi.classList.add('active');
                     
-                    displaySeries(seriesIndex, false); // false prevents infinite URL loops
+                    // Display the photos without pushing a new history state
+                    displaySeries(seriesIndex, false); 
                     document.getElementById('photography').scrollIntoView({ behavior: 'smooth' });
                 }
             }
         }
-
         // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1115,22 +1116,25 @@
         const photoSeriesList = document.querySelector('.photo-series-list ul');
         const photoSeriesDisplay = document.querySelector('.photo-series-display');
 
+        // Update the list generation loop
         photoSeries.forEach((series, index) => {
             const li = document.createElement('li');
             li.textContent = series.title;
             li.dataset.series = index;
-            li.dataset.slug = series.slug; // Store slug in the element
+            li.dataset.slug = series.slug; // Attach slug for the router to find
             li.addEventListener('click', () => {
-                // Change the hash, which triggers handleRouting automatically
+                // Changing the hash triggers 'hashchange' which calls handleRouting
                 window.location.hash = `#photography/${series.slug}`;
             });
             photoSeriesList.appendChild(li);
         });
 
+        // Update the display function
         function displaySeries(index, updateHash = true) {
             photoSeriesDisplay.innerHTML = '';
             const series = photoSeries[index];
             
+            // If we clicked manually, update the URL
             if (updateHash) {
                 history.replaceState(null, null, `#photography/${series.slug}`);
             }
