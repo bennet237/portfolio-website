@@ -807,19 +807,16 @@
 
         const photoSeries = [
             {
-                slug: "reunion-2025",
                 title: "Carleton College Reunion Weekend 2025",
                 photos: photoData
             },
             {
-                slug: "film-noir",
                 title: "Film Noir ",
                 photos: [
                     { src: "https://f004.backblazeb2.com/file/tefub-films/photography/noir/mystery.jpg", desc: "This photo was taken on an iPhone 13 Pro. It references the characters of Jeff Bailey and Kathie Moffat in the movie, OUT OF THE PAST. It highlights the mysterious nature of the femme fatale and the hardboiled detective in film noir. We see a man (left) holding a cigar, whose face displays no emotion whatsoever. Subjectively, the man is likely thinking about something important enough to garner the attention of the woman (right) looking at him. Low-key lighting intensifies the mysterious nature of the characters in this photograph, especially the woman. As an element of German expressionism, it signifies her intrigue and hatred for the man. For unknown reasons, she wants to know what is happening in the man’s head. She could have good intentions, but her intentions might also be wrong. Therefore, she is portrayed as a person who cannot be trusted. Kathie looks at Jeff the same way when he is driving a car or sitting on a couch. Because of her behavior, Jeff comes to regard her as vicious and declines to believe anything she says. He clarifies this point by saying, 'You’re like a leaf blown by the wind from one gutter to another.' It is undeniable that the woman in the photo seems sad. By highlighting the man more than the woman, the key light shows that he is more important than the woman. In culture, this importance is expressed as a patriarchal system that has discriminated against women for a long time in history. The importance of the man illustrated in the photo explains the woman's facial expression, which seems to characterize a mix of sadness and caution for the male gender. This explains the reason why Kathie acts in a self-defensive manner when Jeff says she can’t be trusted. As a woman who has been objectified in a world of violent men, her behavior in constantly trying to observe men’s behavior or manipulate them is due to her marginalization." }
                 ]
             },
             {
-                slug: "headshots",
                 title: "Headshots",
                 photos: [
                     { src: "https://f004.backblazeb2.com/file/tefub-films/photography/headshots/IMG_2942.jpg", desc: "" }
@@ -852,36 +849,20 @@
             modalVideoPlayer.play();
         }
 
-       function handleRouting() {
+        function handleRouting() {
             const hash = window.location.hash;
-
-            // --- Filmography Routing ---
+            // Only proceed if the hash explicitly points to a filmography path
             if (hash.startsWith('#filmography/')) {
                 const slug = hash.replace('#filmography/', '');
                 const filmIndex = filmData.findIndex(f => f.slug === slug);
                 if (filmIndex !== -1) {
                     updateViewer(filmIndex, true);
+                    // Smooth scroll to the filmography section
                     document.getElementById('filmography').scrollIntoView({ behavior: 'smooth' });
                 }
-            } 
-            
-            // --- Photography Routing (New Logic) ---
-            else if (hash.startsWith('#photography/')) {
-                const slug = hash.replace('#photography/', '');
-                const seriesIndex = photoSeries.findIndex(s => s.slug === slug);
-                
-                if (seriesIndex !== -1) {
-                    // Update the sidebar list UI
-                    document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
-                    const activeLi = document.querySelector(`.photo-series-list li[data-slug="${slug}"]`);
-                    if (activeLi) activeLi.classList.add('active');
-                    
-                    // Display the photos without pushing a new history state
-                    displaySeries(seriesIndex, false); 
-                    document.getElementById('photography').scrollIntoView({ behavior: 'smooth' });
-                }
             }
-        }
+}
+
         // --- GENERAL SETUP ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1112,33 +1093,25 @@
             handleRouting();
         }
 
-        // --- Updated Photography Display Logic ---
+        // --- PHOTOGRAPHY ---
         const photoSeriesList = document.querySelector('.photo-series-list ul');
         const photoSeriesDisplay = document.querySelector('.photo-series-display');
 
-        // Update the list generation loop
         photoSeries.forEach((series, index) => {
             const li = document.createElement('li');
             li.textContent = series.title;
             li.dataset.series = index;
-            li.dataset.slug = series.slug; // Attach slug for the router to find
             li.addEventListener('click', () => {
-                // Changing the hash triggers 'hashchange' which calls handleRouting
-                window.location.hash = `#photography/${series.slug}`;
+                document.querySelectorAll('.photo-series-list li').forEach(el => el.classList.remove('active'));
+                li.classList.add('active');
+                displaySeries(index);
             });
             photoSeriesList.appendChild(li);
         });
 
-        // Update the display function
-        function displaySeries(index, updateHash = true) {
+        function displaySeries(index) {
             photoSeriesDisplay.innerHTML = '';
             const series = photoSeries[index];
-            
-            // If we clicked manually, update the URL
-            if (updateHash) {
-                history.replaceState(null, null, `#photography/${series.slug}`);
-            }
-
             series.photos.forEach(photo => {
                 const item = document.createElement('div');
                 item.className = 'photo-item';
